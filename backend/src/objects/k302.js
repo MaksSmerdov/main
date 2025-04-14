@@ -1,0 +1,54 @@
+import { readRegister } from '../services/modbusSerial.js';
+import { deviceConfigs } from '../services/deviceConfig.js';
+import { saveDataToDB } from '../services/database.js';
+
+// Функция для опроса устройства k301
+export const pollK302 = async (client) => {
+  try {
+    // Устанавливаем ID устройства
+    client.setID(deviceConfigs.k302.slaveId);
+
+    // Опрос регистров
+    const qt1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qt1)).toFixed(2));
+    const wt1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.wt1)).toFixed(2));
+    const qo1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qo1)).toFixed(2));
+    const qo2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qo2)).toFixed(2));
+    const t1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.t1)).toFixed(2));
+    const t2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.t2)).toFixed(2));
+    const p1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.p1)).toFixed(2));
+    const p2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.p2)).toFixed(2));
+    const qm1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qm1)).toFixed(2));
+    const qm2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qm2)).toFixed(2));
+
+    // Вывод данных в консоль
+    console.log('Данные устройства k302:');
+    console.table({
+      'Гкал/накопл (qt1)': qt1,
+      'Гкал/ч (wt1)': wt1,
+      'Расход прямой (qo1)': qo1,
+      'Расход обратный (qo2)': qo2,
+      'Температура прямая (t1)': t1,
+      'Температура обратная (t2)': t2,
+      'Давление прямое (p1)': p1,
+      'Давление обратное (p2)': p2,
+      'Расход прямой тонн/ч (qm1)': qm1,
+      'Расход обратный тонн/ч (qm2)': qm2,
+    });
+
+    // Запись данных в базу
+    await saveDataToDB('k302', {
+      qt1,
+      wt1,
+      qo1,
+      qo2,
+      t1,
+      t2,
+      p1,
+      p2,
+      qm1,
+      qm2,
+    });
+  } catch (err) {
+    console.error('Ошибка при опросе устройства k302:', err);
+  }
+};
