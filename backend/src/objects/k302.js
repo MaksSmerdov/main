@@ -1,26 +1,24 @@
-import { connectToModbus, readRegister } from '../services/modbusSerial.js';
+import { readRegister } from '../services/modbusSerial.js';
 import { deviceConfigs } from '../services/deviceConfig.js';
 import { saveDataToDB } from '../services/database.js';
 
 // Функция для опроса устройства k301
-export const pollK302 = async () => {
-  let client;
-
+export const pollK302 = async (client) => {
   try {
-    // Подключение к устройству
-    client = await connectToModbus(deviceConfigs.k302);
+    // Устанавливаем ID устройства
+    client.setID(deviceConfigs.k302.slaveId);
 
     // Опрос регистров
-    const qt1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.qt1)).toFixed(2));
-    const wt1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.wt1)).toFixed(2));
-    const qo1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.qo1)).toFixed(2));
-    const qo2 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.qo2)).toFixed(2));
-    const t1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.t1)).toFixed(2));
-    const t2 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.t2)).toFixed(2));
-    const p1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.p1)).toFixed(2));
-    const p2 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.p2)).toFixed(2));
-    const qm1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.qm1)).toFixed(2));
-    const qm2 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.qm2)).toFixed(2));
+    const qt1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qt1)).toFixed(2));
+    const wt1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.wt1)).toFixed(2));
+    const qo1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qo1)).toFixed(2));
+    const qo2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qo2)).toFixed(2));
+    const t1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.t1)).toFixed(2));
+    const t2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.t2)).toFixed(2));
+    const p1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.p1)).toFixed(2));
+    const p2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.p2)).toFixed(2));
+    const qm1 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qm1)).toFixed(2));
+    const qm2 = parseFloat((await readRegister(client, deviceConfigs.k302.registers.qm2)).toFixed(2));
 
     // Вывод данных в консоль
     console.log('Данные устройства k302:');
@@ -52,12 +50,5 @@ export const pollK302 = async () => {
     });
   } catch (err) {
     console.error('Ошибка при опросе устройства k302:', err);
-  } finally {
-    if (client) {
-      client.close(() => console.log('Соединение с устройством k302 закрыто'));
-    }
-
-    // Повторяем опрос через 5 секунд
-    setTimeout(pollK302, 5000);
   }
 };

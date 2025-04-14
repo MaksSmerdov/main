@@ -1,14 +1,13 @@
-import { connectToModbus, readRegister } from '../services/modbusSerial.js';
+import { readRegister } from '../services/modbusSerial.js';
 import { deviceConfigs } from '../services/deviceConfig.js';
 import { saveDataToDB } from '../services/database.js';
 
 // Функция для опроса устройства k301
-export const pollK301 = async () => {
-  let client;
-
+// Функция для опроса устройства k301
+export const pollK301 = async (client) => {
   try {
-    // Подключение к устройству
-    client = await connectToModbus(deviceConfigs.k301);
+    // Устанавливаем ID устройства
+    client.setID(deviceConfigs.k301.slaveId);
 
     // Опрос регистров
     const qt1 = parseFloat((await readRegister(client, deviceConfigs.k301.registers.qt1)).toFixed(2));
@@ -52,12 +51,5 @@ export const pollK301 = async () => {
     });
   } catch (err) {
     console.error('Ошибка при опросе устройства k301:', err);
-  } finally {
-    if (client) {
-      client.close(() => console.log('Соединение с устройством k301 закрыто'));
-    }
-
-    // Повторяем опрос через 5 секунд
-    setTimeout(pollK301, 10000);
   }
 };
