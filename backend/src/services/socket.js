@@ -1,4 +1,6 @@
-import { modelsMap } from './database.js';
+import { modelsMap } from "./dataBase.js";
+
+
 
 // Функция для инициализации Socket.IO
 export const initSocket = (io) => {

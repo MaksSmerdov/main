@@ -1,9 +1,9 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { connectDB } from './services/database.js';
-import { initSocket } from './services/socket.js'; // Импортируем функцию для Socket.IO
+import { initSocket } from './services/socket.js';
 import { pollDevicesWithSharedConnection } from './services/globalClient.js';
+import { connectDB } from './services/dataBase.js';
 
 // Создаем экземпляр приложения
 const app = express();
@@ -28,6 +28,6 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
 
-  // Начинаем опрос устройств
+  // Запуск опроса
   pollDevicesWithSharedConnection();
 });
