@@ -2,6 +2,12 @@ import mongoose from 'mongoose';
 
 const k301Schema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
+  deviceInfo: {
+    deviceName: String,
+    port: String,
+    baudRate: Number,
+    slaveId: Number
+  },
   data: {
     qt1: Number, // Гкал/накопл
     wt1: Number, // Гкал/ч

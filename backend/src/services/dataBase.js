@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import k301model from '../models/k301model.js';
 import k302Model from '../models/k302Model.js';
-
+import { deviceConfigs } from './deviceConfig.js';
 
 const mongoURI = 'mongodb://127.0.0.1:27017/energy-resources';
 
@@ -29,7 +29,18 @@ export const saveDataToDB = async (deviceName, data) => {
       throw new Error(`Модель для устройства ${deviceName} не найдена`);
     }
 
-    const record = new Model({ data });
+    const deviceConfig = deviceConfigs[deviceName];
+
+    const record = new Model({
+      deviceInfo: {
+        deviceName: deviceConfig.deviceName,
+        port: deviceConfig.port,
+        baudRate: deviceConfig.baudRate,
+        slaveId: deviceConfig.slaveId,
+      },
+      data,
+    });
+
     await record.save();
     console.log(`Данные устройства ${deviceName} сохранены в MongoDB`);
   } catch (error) {

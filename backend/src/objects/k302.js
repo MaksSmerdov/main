@@ -1,6 +1,6 @@
 import { readRegister } from '../services/modbusSerial.js';
 import { deviceConfigs } from '../services/deviceConfig.js';
-import { saveDataToDB } from '../services/database.js';
+import { saveDataToDB } from '../services/dataBase.js';
 
 // Функция для опроса устройства k301
 export const pollK302 = async (client) => {
