@@ -21,12 +21,12 @@ export class BaseComClient {
 
   async pollDevices(devicePollers) {
     if (!this.client) await this.initialize();
-
     for (const poller of devicePollers) {
       try {
         await poller(this.client);
       } catch (err) {
         console.error(`Ошибка при опросе устройства:`, err);
+        // Продолжаем опрос остальных устройств
       }
     }
   }

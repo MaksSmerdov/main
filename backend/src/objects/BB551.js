@@ -1,4 +1,3 @@
-// objects/BB551.js
 import { readRegister } from '../services/modbusSerial.js';
 import { deviceConfigs } from '../services/deviceConfig.js';
 import { saveDataToDB } from '../services/dataBase.js';
@@ -16,6 +15,7 @@ export const pollBB551 = async (client) => {
       wpAccumulated: parseFloat((await readRegister(client, deviceConfigs.BB551.registers.wpAccumulated)).toFixed(2)),
       wtFlow: parseFloat((await readRegister(client, deviceConfigs.BB551.registers.wtFlow)).toFixed(2)),
       wpFlow: parseFloat((await readRegister(client, deviceConfigs.BB551.registers.wpFlow)).toFixed(2)),
+      error: null,
     };
 
     console.log('Данные устройства BB551:');
@@ -23,6 +23,21 @@ export const pollBB551 = async (client) => {
 
     await saveDataToDB('BB551', data);
   } catch (err) {
-    console.error('Ошибка при опросе устройства BB551:', err);
+    console.error('Ошибка при опросе устройства BB551:', err.message);
+
+    // Создаем запись с пустыми данными и отметкой об ошибке
+    const errorData = {
+      wt1: null,
+      p1: null,
+      qo1: null,
+      qm1: null,
+      wtAccumulated: null,
+      wpAccumulated: null,
+      wtFlow: null,
+      wpFlow: null,
+      error: 'Device not responding', 
+    };
+
+    await saveDataToDB('BB551', errorData);
   }
 };

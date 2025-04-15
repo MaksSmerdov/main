@@ -6,6 +6,7 @@ import BB551Model from '../models/BB551Model.js';
 import BB690Model from '../models/BB690Model.js';
 import CC125Model from '../models/CC125Model.js';
 import CC168Model from '../models/CC168Model.js';
+import BB93Model from '../models/BB93Model.js';
 
 const mongoURI = 'mongodb://127.0.0.1:27017/energy-resources';
 
@@ -24,6 +25,7 @@ export const modelsMap = {
   k301: k301model,
   k302: k302Model,
   BB551: BB551Model,
+  BB93: BB93Model,
   BB690: BB690Model,
   CC125: CC125Model,
   CC168: CC168Model,
@@ -38,7 +40,6 @@ export const saveDataToDB = async (deviceName, data) => {
     }
 
     const deviceConfig = deviceConfigs[deviceName];
-
     const record = new Model({
       deviceInfo: {
         deviceName: deviceConfig.deviceName,
@@ -47,6 +48,8 @@ export const saveDataToDB = async (deviceName, data) => {
         slaveId: deviceConfig.slaveId,
       },
       data,
+      timestamp: new Date(),
+      hasError: data.error ? true : false,
     });
 
     await record.save();
