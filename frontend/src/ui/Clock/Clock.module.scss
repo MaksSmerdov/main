@@ -113,3 +113,9 @@
     transform: rotate(0deg);
   }
 }
+
+@media (max-width: 1280px) {
+  .clock {
+    display: none;
+  }
+}

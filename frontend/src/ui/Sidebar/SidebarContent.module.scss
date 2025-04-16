@@ -1,0 +1,66 @@
+@use "../../../src/styles/mixins" as mixins;
+@use "../../../src/styles/variables" as vars;
+
+.sidebar-content {
+  padding-top: 10px;
+
+  &__header {
+    margin: 0;
+    padding-bottom: 10px;
+    @include mixins.text-style(20px, 20px, 600, vars.$black);
+  }
+
+  &__object-title {
+    margin: 0;
+    padding-bottom: 10px;
+    @include mixins.text-style(18px, 18px, 500, rgb(100, 99, 99));
+  }
+
+  &__section {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__object {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__link {
+    position: relative;
+    text-decoration: none;
+    @include mixins.text-style(14px, 14px, 500, vars.$hulk);
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid vars.$hulk;
+    }
+
+    &:not(.active)::after {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    &:not(.active):hover::after {
+      transform: scaleX(1);
+    }
+
+    &.active::after {
+      transform: scaleX(1);
+      transition: none;
+    }
+  }
+}

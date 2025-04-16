@@ -112,3 +112,9 @@
 .today {
   background-color: yellow;
 }
+
+@media (max-width: 1280px) {
+  .calendar {
+    display: none;
+  }
+}
