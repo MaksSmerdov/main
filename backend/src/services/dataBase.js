@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import k301model from '../models/k301model.js';
 import k302Model from '../models/k302Model.js';
-import { deviceConfigs } from './deviceConfig.js';
 import BB551Model from '../models/BB551Model.js';
 import BB690Model from '../models/BB690Model.js';
 import CC125Model from '../models/CC125Model.js';
 import CC168Model from '../models/CC168Model.js';
 import BB93Model from '../models/BB93Model.js';
+import { getDeviceData } from './dataStore.js';
 
 const mongoURI = 'mongodb://127.0.0.1:27017/energy-resources';
 
@@ -32,28 +32,30 @@ export const modelsMap = {
 };
 
 // Функция для сохранения данных в базу
-export const saveDataToDB = async (deviceName, data) => {
+export const saveDataToDB = async (deviceName) => {
   try {
     const Model = modelsMap[deviceName];
     if (!Model) {
       throw new Error(`Модель для устройства ${deviceName} не найдена`);
     }
 
-    const deviceConfig = deviceConfigs[deviceName];
+    const deviceData = getDeviceData(deviceName);
+    if (!deviceData) return;
+
     const record = new Model({
       deviceInfo: {
-        deviceName: deviceConfig.deviceName,
-        port: deviceConfig.port,
-        baudRate: deviceConfig.baudRate,
-        slaveId: deviceConfig.slaveId,
+        deviceName: deviceData.deviceName,
+        port: deviceData.port,
+        baudRate: deviceData.baudRate,
+        slaveId: deviceData.slaveId,
       },
-      data,
-      timestamp: new Date(),
-      hasError: data.error ? true : false,
+      data: deviceData,
+      timestamp: deviceData.timestamp,
+      hasError: !!deviceData.error
     });
 
     await record.save();
-    console.log(`Данные устройства ${deviceName} сохранены в MongoDB`);
+    console.log(`Данные ${deviceName} сохранены в MongoDB`);
   } catch (error) {
     console.error(`Ошибка при сохранении данных устройства ${deviceName}:`, error);
   }

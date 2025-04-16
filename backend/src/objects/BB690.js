@@ -1,37 +1,40 @@
 import { readRegister } from '../services/modbusSerial.js';
 import { deviceConfigs } from '../services/deviceConfig.js';
-import { saveDataToDB } from '../services/dataBase.js';
+import { updateDeviceData } from '../services/dataStore.js';
 
 export const pollBB690 = async (client) => {
+  const deviceName = 'BB690';
+  const config = deviceConfigs[deviceName];
+
   try {
-    client.setID(deviceConfigs.BB690.slaveId);
+    client.setID(config.slaveId);
 
-    const data = {
-      wt1: parseFloat((await readRegister(client, deviceConfigs.BB690.registers.wt1)).toFixed(2)),
-      t1: parseFloat((await readRegister(client, deviceConfigs.BB690.registers.t1)).toFixed(2)),
-      p1: parseFloat((await readRegister(client, deviceConfigs.BB690.registers.p1)).toFixed(2)),
-      qo1: parseFloat((await readRegister(client, deviceConfigs.BB690.registers.qo1)).toFixed(2)),
-      qm1: parseFloat((await readRegister(client, deviceConfigs.BB690.registers.qm1)).toFixed(2)),
-      error: null, // Устройство доступно, ошибки нет
+    const newData = {
+      deviceName: config.deviceName,
+      port: config.port,
+      baudRate: config.baudRate,
+      slaveId: config.slaveId,
+      wt1: parseFloat((await readRegister(client, config.registers.wt1)).toFixed(2)),
+      t1: parseFloat((await readRegister(client, config.registers.t1)).toFixed(2)),
+      p1: parseFloat((await readRegister(client, config.registers.p1)).toFixed(2)),
+      qo1: parseFloat((await readRegister(client, config.registers.qo1)).toFixed(2)),
+      qm1: parseFloat((await readRegister(client, config.registers.qm1)).toFixed(2)),
+      timestamp: new Date(),
+      error: null
     };
 
-    console.log('Данные устройства BB690 (УП карбонизация пар):');
-    console.table(data);
+    updateDeviceData(deviceName, newData);
+    console.log(`Данные ${deviceName} обновлены`);
 
-    await saveDataToDB('BB690', data);
   } catch (err) {
-    console.error('Ошибка при опросе устройства BB690:', err.message);
-
-    // Создаем запись с пустыми данными и отметкой об ошибке
-    const errorData = {
-      wt1: null,
-      t1: null,
-      p1: null,
-      qo1: null,
-      qm1: null,
-      error: 'Device not responding', // Сообщение об ошибке
-    };
-
-    await saveDataToDB('BB690', errorData);
+    console.error(`Ошибка опроса ${deviceName}:`, err.message);
+    updateDeviceData(deviceName, {
+      deviceName: config.deviceName,
+      port: config.port,
+      baudRate: config.baudRate,
+      slaveId: config.slaveId,
+      error: err.message,
+      timestamp: new Date()
+    });
   }
 };

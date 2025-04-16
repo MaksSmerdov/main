@@ -1,35 +1,37 @@
 import { readRegister } from '../services/modbusSerial.js';
 import { deviceConfigs } from '../services/deviceConfig.js';
-import { saveDataToDB } from '../services/dataBase.js';
+import { updateDeviceData } from '../services/dataStore.js';
 
 export const pollCC168 = async (client) => {
+  const deviceName = 'CC168';
+  const config = deviceConfigs[deviceName];
+
   try {
-    client.setID(deviceConfigs.CC168.slaveId);
+    client.setID(config.slaveId);
 
-    const data = {
-      k295_du20_accumulated: parseFloat(
-        (await readRegister(client, deviceConfigs.CC168.registers.k295_du20_accumulated)).toFixed(2)
-      ),
-      k295_du50_accumulated: parseFloat(
-        (await readRegister(client, deviceConfigs.CC168.registers.k295_du50_accumulated)).toFixed(2)
-      ),
-      error: null, // Устройство доступно, ошибки нет
+    const newData = {
+      deviceName: config.deviceName,
+      port: config.port,
+      baudRate: config.baudRate,
+      slaveId: config.slaveId,
+      k295_du20_accumulated: parseFloat((await readRegister(client, config.registers.k295_du20_accumulated)).toFixed(2)),
+      k295_du50_accumulated: parseFloat((await readRegister(client, config.registers.k295_du50_accumulated)).toFixed(2)),
+      timestamp: new Date(),
+      error: null
     };
 
-    console.log('Данные устройства CC168 (к295 вода питьевая):');
-    console.table(data);
+    updateDeviceData(deviceName, newData);
+    console.log(`Данные ${deviceName} обновлены`);
 
-    await saveDataToDB('CC168', data);
   } catch (err) {
-    console.error('Ошибка при опросе устройства CC168:', err.message);
-
-    // Создаем запись с пустыми данными и отметкой об ошибке
-    const errorData = {
-      k295_du20_accumulated: null,
-      k295_du50_accumulated: null,
-      error: 'Device not responding', // Сообщение об ошибке
-    };
-
-    await saveDataToDB('CC168', errorData);
+    console.error(`Ошибка опроса ${deviceName}:`, err.message);
+    updateDeviceData(deviceName, {
+      deviceName: config.deviceName,
+      port: config.port,
+      baudRate: config.baudRate,
+      slaveId: config.slaveId,
+      error: err.message,
+      timestamp: new Date()
+    });
   }
 };
