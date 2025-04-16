@@ -35,7 +35,7 @@ export const pollBB551 = async (client) => {
       wpAccumulated: null,
       wtFlow: null,
       wpFlow: null,
-      error: 'Device not responding', 
+      error: 'Device not responding',
     };
 
     await saveDataToDB('BB551', errorData);
