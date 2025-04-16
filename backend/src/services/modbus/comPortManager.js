@@ -1,21 +1,48 @@
 import { com11Client } from './com11Client.js';
 import { com12Client } from './com12Client.js';
 import { saveDataToDB } from '../dataBase.js';
+import { ModbusSimulator } from '../modbusSimulator.js';
 
 export class ComPortManager {
   constructor() {
-    this.clients = [com11Client, com12Client];
-    this.pollInterval = 5000; // Опрос устройств каждые 5 сек
-    this.saveInterval = 60000; // Запись в БД каждую минуту
-    this.lastSaveTime = Date.now();
+    // Перенесем инициализацию в отдельный метод
+    this.initialized = false;
     this.timeoutId = null;
+  }
+
+  async initialize() {
+    if (this.initialized) return;
+
+    console.log('ComPortManager NODE_ENV:', process.env.NODE_ENV);
+    console.log('ComPortManager PORT:', process.env.PORT);
+
+    this.isProduction = process.env.NODE_ENV === 'production';
+
+    if (this.isProduction) {
+      this.clients = [com11Client, com12Client];
+    } else {
+      this.simulator = new ModbusSimulator();
+      this.deviceNames = ['k301', 'k302', 'BB551', 'BB93', 'BB690', 'CC125', 'CC168'];
+    }
+
+    this.pollInterval = 5000;
+    this.saveInterval = 60000;
+    this.lastSaveTime = Date.now();
+    this.initialized = true;
   }
 
   async pollAll() {
     try {
-      // Опрашиваем все устройства
-      for (const client of this.clients) {
-        await client.poll();
+      if (this.isProduction) {
+        // Реальный режим - опрашиваем клиенты
+        for (const client of this.clients) {
+          await client.poll();
+        }
+      } else {
+        // Режим разработки - используем симулятор
+        for (const deviceName of this.deviceNames) {
+          await this.simulator.pollDevice(deviceName);
+        }
       }
 
       // Проверяем нужно ли сохранять в БД
@@ -30,7 +57,6 @@ export class ComPortManager {
       this.scheduleNextPoll();
     }
   }
-
   async saveAllData() {
     try {
       const deviceNames = ['k301', 'k302', 'BB551', 'BB93', 'BB690', 'CC125', 'CC168'];

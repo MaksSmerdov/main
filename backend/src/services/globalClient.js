@@ -1,6 +1,8 @@
 import { comPortManager } from './modbus/comPortManager.js';
 
-export const pollDevicesWithSharedConnection = () => {
+// globalClient.js
+export const pollDevicesWithSharedConnection = async () => {
+  await comPortManager.initialize();
   comPortManager.startPolling();
 };
 
