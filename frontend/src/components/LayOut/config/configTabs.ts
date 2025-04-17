@@ -1,13 +1,11 @@
 interface MainTab {
   label: string;
-  path: string;
-  subTabs: string[];
+  subTabs?: string[];
 };
 
 export const mainTabs: MainTab[] = [
   {
     label: "Карбон",
-    path: "/carbon",
     subTabs: [
       "Дашборд",
       "Печи Карбонизации",
@@ -20,7 +18,6 @@ export const mainTabs: MainTab[] = [
   },
   {
     label: "Угольное производство",
-    path: "/ugol_production",
     subTabs: [
       "Вр. печи активации к.266",
       "Отделение активации к.10б",
@@ -32,7 +29,6 @@ export const mainTabs: MainTab[] = [
   },
   {
     label: "Узлы учета",
-    path: "/uzli_ucheta",
     subTabs: [
       "Отчеты по энергоресурсам",
       "Параметры узлов учета",
@@ -42,7 +38,6 @@ export const mainTabs: MainTab[] = [
   },
   {
     label: "УТВХ",
-    path: "/utvh",
     subTabs: [
       "Дашборд",
       "Графики расхода/давление пара",
@@ -53,7 +48,6 @@ export const mainTabs: MainTab[] = [
   },
   {
     label: "СИЗОД",
-    path: "/sizod",
     subTabs: [
       "Автоматические линии",
       "Отопительная вода к.301",
@@ -63,12 +57,54 @@ export const mainTabs: MainTab[] = [
   },
   {
     label: "Ресурсы",
-    path: "/resources",
     subTabs: ["Энергоресурсы"],
   },
   {
     label: "Симулятор",
-    path: "/simulator",
     subTabs: ["Симуляторы производства Карбон"],
+  },
+  {
+    label: "Библиотека",
+  },
+];
+
+export const libraryTabs: MainTab[] = [
+  {
+    label: "САИМ",
+    subTabs: [
+      "Инструкции",
+      "Схемы",
+    ],
+  },
+  {
+    label: "СИЗОД",
+    subTabs: [
+      "Инструкции",
+      "Схемы",
+    ],
+  },
+  {
+    label: "Угольное производство",
+    subTabs: [
+      "Инструкции",
+      "Схемы",
+    ],
+  },
+  {
+    label: "УТВХ",
+    subTabs: [
+      "Инструкции",
+      "Схемы",
+    ],
+  },
+  {
+    label: "УЭХ",
+    subTabs: [
+      "Инструкции",
+      "Схемы",
+    ],
+  },
+  {
+    label: "Технологический сайт",
   },
 ];

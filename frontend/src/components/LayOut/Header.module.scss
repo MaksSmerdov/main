@@ -7,55 +7,75 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 40px;
+    gap: 25px;
     border-bottom: 2px solid #dfdcdc;
   }
 
   &__left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    &-img {
+      width: 45px;
+    }
+
+    &-title {
+      text-align: center;
+      text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+      @include mixins.text-style(24px, 36px, 600, vars.$hulk);
+    }
+  }
+
+  &__center {
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     background-color: vars.$snowflake;
     padding: 0 0 10px 0;
     border-radius: 10px;
     box-shadow: 2px 2px 16px vars.$grey;
-  }
 
-  &__tabs {
-    display: flex;
-    justify-content: space-between;
-  }
+    &-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
 
-  &__subtabs {
-    padding-top: 8px;
-    padding-left: 8px;
-    height: 100%;
-    display: flex;
-    gap: 5px;
+    &-subtabs {
+      padding-top: 8px;
+      padding-left: 8px;
+      height: 100%;
+      display: flex;
+      gap: 5px;
 
-    &-link {
-      padding: 8px;
-      border-radius: 5px;
-      @include mixins.text-style(16px, 16px, 500, vars.$hulk);
-      cursor: pointer;
-      transition: color 0.5s ease, background-color 0.5s ease;
+      &--link {
+        padding: 8px;
+        border-radius: 5px;
+        @include mixins.text-style(16px, 16px, 500, vars.$hulk);
+        cursor: pointer;
+        transition: color 0.5s ease, background-color 0.5s ease;
 
-      &:hover {
-        color: vars.$beluga;
-        background-color: vars.$hulk;
-      }
+        &:hover {
+          color: vars.$beluga;
+          background-color: vars.$hulk;
+        }
 
-      &.active {
-        color: vars.$beluga;
-        background-color: vars.$hulk;
-      }
+        &.active {
+          color: vars.$beluga;
+          background-color: vars.$hulk;
+        }
 
-      &.no-transition {
-        transition: none !important;
+        &.no-transition {
+          transition: none !important;
+        }
       }
     }
+
   }
 
   &__right {
@@ -64,10 +84,11 @@
     align-items: center;
     gap: 25px;
   }
+
 }
 
 .custom__tabs {
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px 0 0 0;
 
   :global(.MuiButtonBase-root.MuiTab-textColorPrimary) {
     @include mixins.text-style(16px, 16px, 600, vars.$hulk);
@@ -81,7 +102,6 @@
   }
 
   :global(.MuiButtonBase-root.Mui-selected) {
-    @include mixins.text-style(16px, 16px, 600, vars.$hulk);
     background-color: rgb(0, 128, 0, 0.1);
   }
 
@@ -90,19 +110,43 @@
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1600px) {
   .header {
-    &__container {
-      gap: 10px;
+    &__left {
+      &-img {
+        width: 40px;
+      }
+
+      &-title {
+        @include mixins.text-style(20px, 30px, 600, vars.$hulk);
+      }
     }
 
-    &__subtabs {
-      &-link {
+
+    &__center-subtabs {
+      &--link {
         padding: 4px;
         @include mixins.text-style(14px, 14px, 500, vars.$hulk);
       }
     }
+  }
 
+  .custom__tabs {
+    border-radius: 10px 0 0 0;
+
+    :global(.MuiButtonBase-root.MuiTab-textColorPrimary) {
+      @include mixins.text-style(14px, 14px);
+      padding: 12px 12px;
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .header {
+    &__container {
+      padding-bottom: 20px;
+      gap: 10px;
+    }
   }
 }
 

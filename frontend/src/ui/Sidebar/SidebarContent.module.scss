@@ -46,21 +46,14 @@
       left: 0;
       width: 100%;
       border-bottom: 1px solid vars.$hulk;
-    }
-
-    &:not(.active)::after {
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s ease;
     }
 
-    &:not(.active):hover::after {
-      transform: scaleX(1);
-    }
-
+    &:hover::after,
     &.active::after {
       transform: scaleX(1);
-      transition: none;
     }
   }
 }
