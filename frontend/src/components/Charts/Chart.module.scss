@@ -1,8 +1,8 @@
-@use '../../styles/mixins' as mixins;
-@use '../../styles/variables' as vars;
+@use "../../styles/mixins" as mixins;
+@use "../../styles/variables" as vars;
 
 .chart-container {
-  margin: 10px 5px;
+  padding-left: 15px;
   display: flex;
   flex-direction: column;
   min-height: 400px;
@@ -11,13 +11,14 @@
 
 .dynamic-graph {
   &__datepicker {
-    width: 150px;
+    max-width: 150px;
   }
 
   &__calendar {
+    padding-left: 42px;
     display: flex;
     flex-direction: column;
-    align-items:flex-start;
+    align-items: self-start;
     gap: 10px;
 
     &--span {
@@ -27,7 +28,8 @@
   }
 
   &__btns {
-    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 42px;
     display: flex;
     gap: 10px;
   }

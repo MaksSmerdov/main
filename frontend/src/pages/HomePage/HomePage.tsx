@@ -29,7 +29,6 @@ const HomePage: React.FC = () => {
           content={sideBarContent}
           container={contentBodyRef.current || undefined}
         />
-
         <iframe
           name="contentFrame"
           src={iframeUrl || undefined}

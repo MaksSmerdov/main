@@ -1,9 +1,4 @@
-import {Config, ConfigParam} from "../../components/Charts/types/configChart.ts";
-
-export const carbonizationConfigs: Config[] = [
-  {id: '1', showIntervalSelector: true},
-  {id: '2', showIntervalSelector: false},
-];
+import {ConfigParam} from "../../components/Charts/types/configChart.ts";
 
 export const temperatureParams: ConfigParam[] = [
   {keyPrefix: 'В топке', label: 'В топке'},

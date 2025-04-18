@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '../../../apiConfig.ts';
+import {API_BASE_URL} from '../../../apiConfig.ts';
 
 export const fetchServerTime = async (): Promise<number> => {
   try {
@@ -32,19 +32,18 @@ export const extractValues = (item: any, dataKey: string) => {
 export const createDataWithGaps = (
   data: { time: Date; values: { [key: string]: number } }[],
   key: string,
-  gapThreshold: number = 60 * 1000 // по умолчанию 1 минута
+  gapThreshold: number = 60 * 1000
 ): { x: Date; y: number | null }[] => {
   const result: { x: Date; y: number | null }[] = [];
 
   for (let i = 0; i < data.length; i++) {
     const currentValue = data[i].values[key] !== undefined ? data[i].values[key] : null;
-    result.push({ x: data[i].time, y: currentValue });
+    result.push({x: data[i].time, y: currentValue});
 
     if (i < data.length - 1) {
       const currentTimestamp = data[i].time.getTime();
       const nextTimestamp = data[i + 1].time.getTime();
       if (nextTimestamp - currentTimestamp > gapThreshold) {
-        // Вставляем дополнительную точку с y: null для явного разрыва линии
         result.push({
           x: new Date(currentTimestamp + gapThreshold),
           y: null,

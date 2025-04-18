@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 export interface GenericReading {
   [key: string]: number;
@@ -15,7 +15,7 @@ export interface DatasetConfig {
   params: { key: string; label: string; unit?: string }[];
 }
 
-export const useFetchChart = (
+export const useHourlyChart = (
   configs: DatasetConfig[],
   startTime: Date,
   endTime: Date,
@@ -72,5 +72,5 @@ export const useFetchChart = (
     void fetchData();
   }, [fetchData]);
 
-  return { data, error, isLoading, refetch: fetchData, refresh };
+  return {data, error, isLoading, refetch: fetchData, refresh};
 };

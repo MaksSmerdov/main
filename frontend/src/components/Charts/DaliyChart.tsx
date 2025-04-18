@@ -1,6 +1,6 @@
 import {
   CategoryScale,
-  Chart as ChartJS,
+  Chart as ChartJS, Legend,
   LinearScale,
   LineElement,
   PointElement,
@@ -14,7 +14,7 @@ import {Dayjs} from 'dayjs';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Line} from 'react-chartjs-2';
 import {API_BASE_URL} from '../../apiConfig';
-import {useFetchChart} from './components/Hooks/useFetchChart.ts';
+import {useDailyChart} from './components/Hooks/useDailyChart.ts';
 import {ChartProps} from './types/configChart.ts';
 import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker.tsx';
 import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage.tsx';
@@ -34,6 +34,7 @@ ChartJS.register(
   CategoryScale,
   Title,
   Tooltip,
+  Legend,
   TimeScale,
   CrosshairPlugin,
   chartAreaBorder,
@@ -72,7 +73,7 @@ const DailyChart: React.FC<ChartProps> = ({
     data,
     error,
     isLoading: isDataLoading,
-  } = useFetchChart(adjustedDatasets, startTime, endTime, 60000);
+  } = useDailyChart(adjustedDatasets, startTime, endTime);
   const [isLoading, setIsLoading] = useState(true);
   const [allHidden, setAllHidden] = useState(false);
 

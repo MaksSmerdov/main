@@ -1,6 +1,6 @@
-import { Dayjs } from 'dayjs';
-import { colors } from '../configs/generalConfig.ts';
-import { createDataWithGaps } from './generalUtils.ts';
+import {Dayjs} from 'dayjs';
+import {colors} from '../configs/generalConfig.ts';
+import {createDataWithGaps} from './generalUtils.ts';
 
 export const computeTimeRange = (
   selectedDate: Dayjs | null,
@@ -12,11 +12,11 @@ export const computeTimeRange = (
     jsDate.setHours(0, 0, 0, 0);
     const startTime = new Date(jsDate);
     const endTime = new Date(jsDate.getTime() + dayDurationMs);
-    return { startTime, endTime };
+    return {startTime, endTime};
   } else {
     const endTime = new Date(getAdjustedTime().getTime());
     const startTime = new Date(endTime.getTime() - dayDurationMs);
-    return { startTime, endTime };
+    return {startTime, endTime};
   }
 };
 
@@ -24,16 +24,16 @@ export const prepareChartData = (
   processedData: any[],
   startTime: Date,
   endTime: Date,
-  gapThreshold: number = 2 * 60 * 1000
+  gapThreshold: number = 5 * 60 * 1000
 ) => {
   const labels =
     processedData[0]?.data.length > 0
       ? processedData[0].data.map((d: any) => d.time)
       : Array.from(
-          { length: 24 },
-          (_, i) =>
-            new Date(startTime.getTime() + (i * (endTime.getTime() - startTime.getTime())) / 24)
-        );
+        {length: 24},
+        (_, i) =>
+          new Date(startTime.getTime() + (i * (endTime.getTime() - startTime.getTime())) / 24)
+      );
 
   const datasetsForChart = processedData.flatMap((dataset: any, datasetIndex: number) =>
     dataset.params.map((param: any, paramIndex: number) => ({
@@ -44,11 +44,11 @@ export const prepareChartData = (
           : labels.map(() => null),
       borderColor: colors[(datasetIndex * dataset.params.length + paramIndex) % colors.length],
       backgroundColor: colors[(datasetIndex * dataset.params.length + paramIndex) % colors.length],
-      borderWidth: 1,
+      borderWidth: 2,
       pointRadius: 0,
       spanGaps: false,
     }))
   );
 
-  return { labels, datasets: datasetsForChart };
+  return {labels, datasets: datasetsForChart};
 };

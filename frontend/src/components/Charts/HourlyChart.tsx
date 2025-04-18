@@ -11,21 +11,21 @@ import {
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import CrosshairPlugin from 'chartjs-plugin-crosshair';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import { API_BASE_URL } from '../../apiConfig';
-import { useInterval } from './components/Context/IntervalContext.tsx';
-import { useFetchChart } from './components/Hooks/useFetchChart.ts';
-import { ChartProps } from './types/configChart.ts';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {Line} from 'react-chartjs-2';
+import {API_BASE_URL} from '../../apiConfig';
+import {useInterval} from './components/Context/IntervalContext.tsx';
+import {useHourlyChart} from './components/Hooks/useHourlyChart.ts';
+import {ChartProps} from './types/configChart.ts';
 import Loader from '../../ui/Loader/Loader';
 import styles from './Chart.module.scss';
 import ControlChartButtons from './components/ControlChartButtons/ControlChartButtons.tsx';
-import { colors } from './configs/generalConfig.ts';
-import { createDataWithGaps, extractValues, fetchServerTime } from './utils/generalUtils.ts';
+import {colors} from './configs/generalConfig.ts';
+import {createDataWithGaps, extractValues, fetchServerTime} from './utils/generalUtils.ts';
 import IntervalSelector from './components/IntervalSelector/IntervalSelector.tsx';
-import { getHourlyChartOptions } from './configs/hourlyChartConfig.ts';
-import { handleBackward, handleForward, handleReturnToCurrent } from './utils/hourlyChartUtils.ts';
-import { backgroundZonesPlugin } from './plugins/chartPlugins.ts';
+import {getHourlyChartOptions} from './configs/hourlyChartConfig.ts';
+import {handleBackward, handleForward, handleReturnToCurrent} from './utils/hourlyChartUtils.ts';
+import {backgroundZonesPlugin} from './plugins/chartPlugins.ts';
 
 ChartJS.register(
   LineElement,
@@ -63,7 +63,7 @@ const HourlyChart: React.FC<ChartProps> = ({
 
   const [timeDifference, setTimeDifference] = useState<number>(0);
   const chartRef = useRef<ChartJS<'line', { x: Date; y: number | null }[], unknown> | null>(null);
-  const { interval } = useInterval();
+  const {interval} = useInterval();
   const [startTime, setStartTime] = useState(new Date(Date.now() - interval * 60 * 1000));
   const [endTime, setEndTime] = useState(new Date());
   const {
@@ -71,7 +71,7 @@ const HourlyChart: React.FC<ChartProps> = ({
     error,
     refetch,
     isLoading: isDataLoading,
-  } = useFetchChart(adjustedDatasets, startTime, endTime);
+  } = useHourlyChart(adjustedDatasets, startTime, endTime);
   const [allHidden, setAllHidden] = useState(false);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
@@ -114,7 +114,7 @@ const HourlyChart: React.FC<ChartProps> = ({
       processedData[0]?.data.length > 0
         ? processedData[0].data.map((d) => d.time)
         : Array.from(
-          { length: 10 },
+          {length: 10},
           (_, i) =>
             new Date(startTime.getTime() + (i * (endTime.getTime() - startTime.getTime())) / 10),
         );
@@ -133,7 +133,7 @@ const HourlyChart: React.FC<ChartProps> = ({
       })),
     );
 
-    return { labels, datasets: datasetsForChart };
+    return {labels, datasets: datasetsForChart};
   }, [processedData, startTime, endTime]);
 
   const options = useMemo(
@@ -243,18 +243,18 @@ const HourlyChart: React.FC<ChartProps> = ({
 
   return (
     <div className={styles['chart-container']}>
-      {showIntervalSelector && <IntervalSelector />}
+      {showIntervalSelector && <IntervalSelector/>}
 
       {isLoading ? (
-        <div className={styles['loader-container']} style={{ width, height }}>
-          <Loader />
+        <div className={styles['loader-container']} style={{width, height}}>
+          <Loader/>
         </div>
       ) : error ? (
-        <div className={styles['error-message']} style={{ width, height }}>
+        <div className={styles['error-message']} style={{width, height}}>
           Ошибка при загрузке данных. Связь с сервером/оборудованием отсутствует.
         </div>
       ) : (
-        <div id={id} style={{ width, height }}>
+        <div id={id} style={{width, height}}>
           <Line
             ref={chartRef}
             data={chartData}

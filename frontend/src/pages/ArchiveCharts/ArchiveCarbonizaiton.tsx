@@ -1,30 +1,27 @@
-import React from 'react';
+// ArchiveTemperCarbonization.tsx
+import React, {useMemo} from 'react';
 import DailyChart from "../../components/Charts/DaliyChart.tsx";
-import {Dataset} from "../../components/Charts/types/configChart.ts";
-import {temperatureParams} from "./configCarbonization.ts";
+import {temperatureParams} from './configCarbonization.ts';
+import type {Dataset} from '../../components/Charts/types/configChart.ts';
 
 const createDatasets = (): Dataset[] =>
   temperatureParams.map(({keyPrefix, label}) => ({
-    apiUrl: `vr1`,
+    apiUrl: 'vr1',
     dataKey: 'temperatures',
-    params: [
-      {
-        key: `${keyPrefix}`,
-        label,
-        unit: '°C',
-      },
-    ],
+    params: [{key: keyPrefix, label, unit: '°C'}],
   }));
 
 const ArchiveTemperCarbonization: React.FC = () => {
+  /** ➜ создаём один раз */
+  const datasets = useMemo(createDatasets, []);
+
   return (
     <DailyChart
-      key={`Temper daily`}
-      id={`Dryer temper daily №1`}
+      id="DryerTemperDaily#1"
       title="Суточный тест"
       yMin={0}
       yMax={1500}
-      datasets={createDatasets()}
+      datasets={datasets}
     />
   );
 };

@@ -1,5 +1,5 @@
-import { ChartOptions } from 'chart.js';
-import { BackgroundZone } from '../types/configChart.ts';
+import {ChartOptions} from 'chart.js';
+import {BackgroundZone} from '../types/configChart.ts';
 
 export const colors: string[] = [
   'rgba(54, 162, 235, 1)',
@@ -26,7 +26,7 @@ export const getBaseChartOptions = (
   params: { key: string; label: string; unit?: string }[],
   yMin?: number,
   yMax?: number,
-  backgroundZones?: BackgroundZone[] // Новый параметр
+  backgroundZones?: BackgroundZone[]
 ): Partial<ChartOptions<'line'>> => ({
   responsive: true,
   maintainAspectRatio: false,
@@ -38,7 +38,7 @@ export const getBaseChartOptions = (
     title: {
       display: true,
       text: title,
-      font: { size: 20, weight: 'bold' },
+      font: {size: 24, weight: 'bold'},
       color: 'green',
     },
     tooltip: {
@@ -54,7 +54,6 @@ export const getBaseChartOptions = (
         },
         label: (context) => {
           const label = context.dataset.label || '';
-          // Извлекаем значение y, если это объект
           const rawValue = context.raw;
           const value =
             rawValue && typeof rawValue === 'object' && 'y' in rawValue ? rawValue.y : rawValue;
@@ -68,10 +67,10 @@ export const getBaseChartOptions = (
       zones: backgroundZones || [],
     },
     crosshair: {
-      line: { color: 'black', width: 1 },
-      sync: { enabled: false },
-      zoom: { enabled: false },
-      snap: { enabled: true },
+      line: {color: 'green', width: 1},
+      sync: {enabled: false},
+      zoom: {enabled: false},
+      snap: {enabled: true},
     },
   },
   scales: {
@@ -79,7 +78,7 @@ export const getBaseChartOptions = (
       type: 'time',
       min: startTime,
       max: isAutoScroll ? endTime + 30 * 1000 : endTime,
-      ticks: { autoSkip: false },
+      ticks: {autoSkip: false},
     },
     y: {
       beginAtZero: yMin === undefined,
