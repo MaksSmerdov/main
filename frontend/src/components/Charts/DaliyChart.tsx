@@ -72,7 +72,7 @@ const DailyChart: React.FC<ChartProps> = ({
   const {
     data,
     error,
-    isLoading: isDataLoading,
+    isInitialLoading: isDataLoading,
   } = useDailyChart(adjustedDatasets, startTime, endTime);
   const [isLoading, setIsLoading] = useState(true);
   const [allHidden, setAllHidden] = useState(false);
@@ -211,7 +211,12 @@ const DailyChart: React.FC<ChartProps> = ({
   }, [selectedDate, getAdjustedTime]);
 
   if (isLoading) return <Loader/>;
-  if (error) return <ErrorMessage/>;
+
+  if (error) return (
+    <div style={{marginLeft: '15px'}}>
+      <ErrorMessage/>
+    </div>
+  );
 
   return (
     <div className={styles['chart-container']}>
