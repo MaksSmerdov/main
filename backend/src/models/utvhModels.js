@@ -15,7 +15,6 @@ const parameterSchema = new mongoose.Schema(
   },
 );
 
-// Все модели «utvh» регистрируем на utvhDb
 export const Kotel1 = utvhDb.model('Kotel1', parameterSchema);
 export const Kotel2 = utvhDb.model('Kotel2', parameterSchema);
 export const Kotel3 = utvhDb.model('Kotel3', parameterSchema);

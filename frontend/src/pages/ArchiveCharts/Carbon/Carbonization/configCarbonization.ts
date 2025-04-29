@@ -1,4 +1,4 @@
-import {ConfigParam} from "../../components/Charts/types/configChart.ts";
+import {ConfigParam} from "../../../../components/Charts/types/configChart.ts";
 
 export const temperatureParams: ConfigParam[] = [
   {keyPrefix: 'В топке', label: 'В топке'},
@@ -31,3 +31,13 @@ export const vacuumParams: ConfigParam[] = [
   {keyPrefix: 'Низ загрузочной камеры', label: 'Разрежение внизу камеры загрузки'},
   {keyPrefix: 'В котле утилизаторе', label: 'Разрежение в котле утилизаторе'},
 ];
+
+export const levelPercentParams: ConfigParam[] = [
+  {keyPrefix: 'В барабане котла', label: 'Уровень в котле-утилизаторе'},
+  {keyPrefix: 'В емкости ХВО', label: 'Уровень ХВО'},
+]
+
+export const notisParams: ConfigParam[] = [
+  {keyPrefix: 'Доза (кг/ч) НОТИС1', label: 'Загрузка печи'},
+  {keyPrefix: 'Доза (кг/ч) НОТИС2', label: 'Загрузка печи'}
+]

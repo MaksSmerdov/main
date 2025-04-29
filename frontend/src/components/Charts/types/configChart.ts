@@ -17,6 +17,7 @@ export interface Dataset {
     label: string;
     unit?: string;
   }[];
+  nestedKey?: string;
 }
 
 export interface BackgroundZone {
@@ -30,11 +31,12 @@ export interface BackgroundZone {
 export interface ChartProps {
   datasets: Dataset[];
   title: string;
+  stepSize?: number;
   yMin?: number;
   yMax?: number;
   width?: number | string;
   height?: number | string;
-  id: string;
+  id?: string;
   showIntervalSelector?: boolean;
   animationEnabled?: boolean;
   backgroundZones?: BackgroundZone[];

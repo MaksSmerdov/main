@@ -11,6 +11,7 @@ export const getDailyChartOptions = (
   title: string,
   isAutoScroll: boolean,
   params: { key: string; label: string; unit?: string }[],
+  stepSize?: number,
   yMin?: number,
   yMax?: number,
   backgroundZones?: BackgroundZone[],
@@ -56,6 +57,10 @@ export const getDailyChartOptions = (
         },
         max: paddedXMax,
       },
+      y: {
+        ...baseOptions.scales?.y,
+        ticks: {stepSize: stepSize}
+      }
     },
   } as ChartOptions<'line'>;
 };

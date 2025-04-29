@@ -9,13 +9,18 @@
   position: relative;
 }
 
-.dynamic-graph {
-  &__datepicker {
-    max-width: 150px;
-  }
+.daily__chart-container {
+  padding-top: 55px;
+  padding-left: 25px;
+  display: flex;
+  flex-direction: column;
+}
 
+.dynamic-graph {
   &__calendar {
-    padding-left: 42px;
+    top: 10px;
+    left: 65px;
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: self-start;

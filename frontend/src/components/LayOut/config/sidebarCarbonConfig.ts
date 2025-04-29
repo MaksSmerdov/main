@@ -24,16 +24,18 @@ export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
       ]),
       createSection("Архивные графики", [
         createObject("Печь карбонизации №1", [
-          {label: "График температуры", path: "/archiveTemperCarbonization"},
-          {label: "График давления/разрежения", path: "/carbon/furnaces/1/pressure"},
-          {label: "График уровня", path: "/carbon/furnaces/1/pressure"},
-          {label: "График дозаторов нотис", path: "/carbon/furnaces/1/pressure"},
+          {label: "График температуры", path: "/TemperCarbonization/1"},
+          {label: "График давления/разрежения", path: "/PressureCarbonization/1"},
+          {label: "Уровень в котле-утилизаторе", path: "/LevelCarbonization/1"},
+          {label: "График уровня в %", path: "/LevelPercentCarbonization/1"},
+          {label: "График дозаторов нотис", path: "/NotisCarbonization/1"},
         ]),
         createObject("Печь карбонизации №2", [
-          {label: "График температуры", path: "/carbon/furnaces/1/temp"},
-          {label: "График давления/разрежения", path: "/carbon/furnaces/1/pressure"},
-          {label: "График уровня", path: "/carbon/furnaces/1/pressure"},
-          {label: "График дозаторов нотис", path: "/carbon/furnaces/1/pressure"},
+          {label: "График температуры", path: "/TemperCarbonization/2"},
+          {label: "График давления/разрежения", path: "/PressureCarbonization/2"},
+          {label: "Уровень в котле-утилизаторе", path: "/LevelCarbonization/2"},
+          {label: "График уровня в %", path: "/LevelPercentCarbonization/2"},
+          {label: "График дозаторов нотис", path: "/NotisCarbonization/2"},
         ]),
       ]),
       createSection("Справка", [

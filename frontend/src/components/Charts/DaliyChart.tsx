@@ -44,10 +44,11 @@ ChartJS.register(
 const DailyChart: React.FC<ChartProps> = ({
                                             datasets,
                                             title,
+                                            stepSize,
                                             yMin,
                                             yMax,
                                             width = '100%',
-                                            height = '500px',
+                                            height = '600px',
                                             id,
                                             backgroundZones,
                                           }) => {
@@ -117,7 +118,7 @@ const DailyChart: React.FC<ChartProps> = ({
       const datasetData =
         data[index]?.map((item: any) => ({
           time: new Date(item.lastUpdated),
-          values: extractValues(item, dataset.dataKey),
+          values: extractValues(item, dataset.dataKey, dataset.nestedKey),
         })) || [];
       return {
         data: datasetData,
@@ -164,11 +165,12 @@ const DailyChart: React.FC<ChartProps> = ({
         chartTitle,
         false,
         adjustedDatasets.flatMap((d) => d.params),
+        stepSize,
         yMin,
         yMax,
         backgroundZones,
       ),
-    [startTime, endTime, chartTitle, adjustedDatasets, yMin, yMax, backgroundZones],
+    [startTime, endTime, chartTitle, adjustedDatasets, stepSize, yMin, yMax, backgroundZones],
   );
 
   const inactivityTimerRef = useRef<number | null>(null);
@@ -219,7 +221,7 @@ const DailyChart: React.FC<ChartProps> = ({
   );
 
   return (
-    <div className={styles['chart-container']}>
+    <div className={styles['daily__chart-container']}>
       <div className={styles['dynamic-graph__calendar']}>
         <span className={styles['dynamic-graph__calendar--span']}>Выберите дату для просмотра архива:</span>
         <CustomDatePicker label="Дата" value={selectedDate} onChange={handleDateChange}/>

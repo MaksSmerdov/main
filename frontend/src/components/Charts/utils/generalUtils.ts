@@ -13,21 +13,45 @@ export const fetchServerTime = async (): Promise<number> => {
   }
 };
 
-export const extractValues = (item: any, dataKey: string) => {
-  const rawValues = item[dataKey];
-  if (rawValues && typeof rawValues === 'object') {
-    const keys = Object.keys(rawValues);
-    if (
-      keys.length > 0 &&
-      rawValues[keys[0]] &&
-      typeof rawValues[keys[0]] === 'object' &&
-      'value' in rawValues[keys[0]]
-    ) {
-      return Object.fromEntries(keys.map((key) => [key, rawValues[key]?.value]));
-    }
+export function extractValues<
+  Item extends Record<string, unknown>
+>(
+  item: Item,
+  dataKey: keyof Item & string,
+  nestedKey?: string
+): Record<string, number | null> {
+  const raw = item[dataKey];
+  if (
+    raw !== null &&
+    typeof raw === 'object' &&
+    !Array.isArray(raw)
+  ) {
+    const record = raw as Record<string, unknown>;
+    return Object.fromEntries(
+      Object.entries(record).map(([key, val]) => {
+        if (
+          nestedKey &&
+          val !== null &&
+          typeof val === 'object' &&
+          nestedKey in (val as Record<string, unknown>)
+        ) {
+          const v = (val as Record<string, unknown>)[nestedKey];
+          return [key, typeof v === 'number' ? v : parseNumber(v)];
+        }
+        return [key, typeof val === 'number' ? val : parseNumber(val)];
+      })
+    );
   }
-  return rawValues || {};
-};
+  return {};
+}
+
+function parseNumber(v: unknown): number | null {
+  if (typeof v === 'string') {
+    const n = parseFloat(v.replace(',', '.'));
+    return isNaN(n) ? null : n;
+  }
+  return null;
+}
 
 export const createDataWithGaps = (
   data: { time: Date; values: { [key: string]: number } }[],

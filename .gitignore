@@ -7,8 +7,8 @@
 /frontend/*.local
 
 #backend ignore
-/backend/src/logs/*
-/backend/src/.env
+/backend/src/logs
+/backend/*.env
 /backend/icon_offline.ico
 /backend/icon_online.ico
 /backend/settings.ini
