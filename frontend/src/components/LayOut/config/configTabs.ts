@@ -71,7 +71,7 @@ export const mainTabs: MainTab[] = [
 
 export const libraryTabs: MainTab[] = [
   {
-    label: "САИМ",
+    label: "САиМ",
     subTabs: [
       "Инструкции",
       "Схемы",

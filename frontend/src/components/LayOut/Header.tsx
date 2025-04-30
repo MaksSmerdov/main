@@ -6,8 +6,7 @@ import Calendar from '../../ui/Calendar/Calendar';
 import styles from './Header.module.scss';
 import SidebarContent from '../../ui/Sidebar/SidebarContent';
 import {mainTabs, libraryTabs} from './config/configTabs';
-import {SideBarContentData} from '../../types/sideBar';
-import {sidebarMainConfig} from './config/sidebarConfig';
+import {sidebarMainConfig, sidebarLibraryConfig} from './config/sidebarConfig';
 
 interface HeaderProps {
   setSideBarOpen: (open: boolean) => void;
@@ -32,6 +31,9 @@ const Header: React.FC<HeaderProps> = ({
   const subsRef = useRef<HTMLUListElement>(null);
 
   const currentMainTab = tabs[mainIndex];
+  const configMap = tabs === mainTabs
+    ? sidebarMainConfig
+    : sidebarLibraryConfig;
 
   const handleMainTabClick = (_: React.SyntheticEvent, newValue: number) => {
     const clickedLabel = tabs[newValue].label;
@@ -60,8 +62,8 @@ const Header: React.FC<HeaderProps> = ({
     setSubIndex(index);
 
     const subLabel = currentMainTab.subTabs![index];
-    const config: SideBarContentData | undefined =
-      sidebarMainConfig[currentMainTab.label]?.[subLabel];
+    const config = configMap[currentMainTab.label]?.[subLabel];
+
 
     if (config) {
       setSideBarContent(

@@ -1,8 +1,3 @@
-export interface Config {
-  id: string;
-  showIntervalSelector: boolean;
-}
-
 export interface ConfigParam {
   device?: string;
   keyPrefix: string;

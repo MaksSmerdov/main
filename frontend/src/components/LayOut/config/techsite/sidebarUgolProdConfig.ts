@@ -1,5 +1,5 @@
-import {SideBarContentData} from "../../../types/sideBar.ts";
-import {createSection, createObject} from "../../../utils/utils";
+import {SideBarContentData} from "../../../../types/sideBar.ts";
+import {createSection, createObject} from "../../../../utils/utils.ts";
 
 export const ugolProductionConfig: Record<string, SideBarContentData> = {
   "Вр. печи активации к.266": {

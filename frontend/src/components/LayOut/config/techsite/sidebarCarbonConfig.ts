@@ -1,5 +1,5 @@
-import {SideBarContentData} from "../../../types/sideBar.ts";
-import {createSection, createObject} from "../../../utils/utils.ts";
+import {SideBarContentData} from "../../../../types/sideBar.ts";
+import {createSection, createObject} from "../../../../utils/utils.ts";
 
 export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
   "Печи Карбонизации": {

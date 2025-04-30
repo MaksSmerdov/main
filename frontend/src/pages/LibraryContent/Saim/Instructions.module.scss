@@ -1,0 +1,58 @@
+@use "../../../styles/variables" as vars;
+@use "../../../styles/mixins" as mixins;
+
+.instructions {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    @include mixins.text-style(20px, 20px, 600, vars.$black);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+
+    &-link {
+      position: relative;
+      text-decoration: none;
+      @include mixins.text-style(18px, 14px, 500, vars.$hulk);
+      cursor: pointer;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -7px;
+        left: 0;
+        width: 100%;
+        border-bottom: 1px solid vars.$hulk;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover::after,
+      &.active::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+}
