@@ -27,3 +27,4 @@ export const PechMpa2 = carbonDb.model('PechMpa2', parameterSchema);
 export const PechMpa3 = carbonDb.model('PechMpa3', parameterSchema);
 export const NotisVr1 = carbonDb.model('NotisVr1', parameterSchema);
 export const NotisVr2 = carbonDb.model('NotisVr2', parameterSchema);
+export const EnergyResources = carbonDb.model('EnergyResources', parameterSchema);

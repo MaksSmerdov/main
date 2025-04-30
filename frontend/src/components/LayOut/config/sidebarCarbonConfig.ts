@@ -59,12 +59,12 @@ export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
       ]),
       createSection("Архивные графики", [
         createObject("Сушилка №1", [
-          {label: "График температур", path: "/archiveTemperCarbonization"},
-          {label: "График давления/разрежения", path: "http://169.254.0.156:3002/vr/1/mnemo"},
+          {label: "График температур", path: "/TemperDryer/1"},
+          {label: "График давления/разрежения", path: "/VacuumDryer/1"},
         ]),
         createObject("Сушилка №2", [
-          {label: "График температур", path: "http://169.254.0.156:3002/vr/1/current"},
-          {label: "График давления/разрежения", path: "http://169.254.0.156:3002/vr/1/mnemo"},
+          {label: "График температур", path: "/TemperDryer/2"},
+          {label: "График давления/разрежения", path: "/VacuumDryer/1"},
         ]),
       ]),
     ],
@@ -81,20 +81,19 @@ export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
           {label: "Мнемосхема", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
         ]),
       ]),
-      createSection("Динамические графики", [
+      createSection("Общие динамические графики", [
         createObject("Печи МПА", [
-          {label: "График температур", path: "http://169.254.0.156:3002/vr/1/current"},
-          {label: "График давления/разрежения", path: "http://169.254.0.156:3002/vr/1/mnemo"},
+          {label: "Графики МПА2 и МПА3", path: "http://169.254.0.156:3002/mpa/grah-general"},
         ]),
       ]),
       createSection("Архивные графики", [
         createObject("МПА №2", [
-          {label: "График температур", path: "http://169.254.0.156:3002/vr/1/current"},
-          {label: "График давления/разрежения", path: "http://169.254.0.156:3002/vr/1/mnemo"},
+          {label: "График температур", path: "/TemperMpa/2"},
+          {label: "График давления/разрежения", path: "/PressureMpa/2"},
         ]),
         createObject("МПА №3", [
-          {label: "График температур", path: "http://169.254.0.156:3002/vr/1/current"},
-          {label: "График давления/разрежения", path: "http://169.254.0.156:3002/vr/1/mnemo"},
+          {label: "График температур", path: "/TemperMpa/3"},
+          {label: "График давления/разрежения", path: "/PressureMpa/3"},
         ]),
       ]),
     ],
@@ -106,13 +105,13 @@ export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
           {label: "Текущие параметры", path: "http://169.254.0.156:3002/current-melnizi"},
         ]),
         createObject("У.П. к.10б", [
-          {label: "Графики вибрации ШБМ №3", path: "http://169.254.0.156:3002/mpa/3/current"},
-          {label: "Графики вибрации YGM-9517", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
-          {label: "Графики вибрации YCVOK-130", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
+          {label: "Графики вибрации ШБМ №3", path: "/VibrationSBM"},
+          {label: "Графики вибрации YGM-9517", path: "/VibrationYGM"},
+          {label: "Графики вибрации YCVOK-130", path: "/VibrationYCVOK"},
         ]),
         createObject("Carbon к.296", [
-          {label: "Графики вибрации Мельницы №1", path: "http://169.254.0.156:3002/mpa/3/current"},
-          {label: "Графики вибрации Мельницы №2", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
+          {label: "Графики вибрации Мельницы №1", path: "/VibrationMill/1"},
+          {label: "Графики вибрации Мельницы №2", path: "/VibrationMill/2"},
         ]),
       ]),
     ]
@@ -124,12 +123,12 @@ export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
           {label: "Текущие параметры", path: "http://169.254.0.156:3002/energy-resources/current"},
         ]),
         createObject("Графики:", [
-          {label: "Пар насыщенный расход", path: "http://169.254.0.156:3002/mpa/3/current"},
-          {label: "Пар насыщенный давление", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
+          {label: "Пар насыщенный расход", path: "/ConsumptionResources"},
+          {label: "Пар насыщенный давление", path: "/PressureResources"},
         ]),
         createObject("Отчеты:", [
-          {label: "Суточный отчет", path: "http://169.254.0.156:3002/mpa/3/current"},
-          {label: "Месячный", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
+          {label: "Суточный отчет", path: "http://169.254.0.156:3002/energy-resources/report-day"},
+          {label: "Месячный", path: "http://169.254.0.156:3002/energy-resources/report-month"},
         ]),
       ]),
     ]
@@ -142,8 +141,8 @@ export const carbonFurnacesConfig: Record<string, SideBarContentData> = {
           {label: "Мнемосхема", path: "http://169.254.0.156:3002/reactors/mnemo"},
         ]),
         createObject("Графики:", [
-          {label: "График температур", path: "http://169.254.0.156:3002/mpa/3/current"},
-          {label: "График уровней", path: "http://169.254.0.156:3002/mpa/3/mnemo"},
+          {label: "График температур", path: "/TemperReactor"},
+          {label: "График уровней", path: "/LevelReactor"},
         ]),
       ]),
     ]

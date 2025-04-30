@@ -73,4 +73,10 @@ export const carbonConfig = [
     apiRoute: '/mpa3',
     model: Carbon.PechMpa3,
   },
+  {
+    name: 'energyResources',
+    url: 'http://169.254.0.156:3002/api/uzliUchetaCarbon',
+    apiRoute: '/uzliUchetaCarbon',
+    model: Carbon.EnergyResources,
+  },
 ];

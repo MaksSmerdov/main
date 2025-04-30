@@ -4,6 +4,7 @@ export interface Config {
 }
 
 export interface ConfigParam {
+  device?: string;
   keyPrefix: string;
   label: string;
   unit?: string;

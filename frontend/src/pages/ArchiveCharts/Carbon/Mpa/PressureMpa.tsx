@@ -2,28 +2,28 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import DailyChart from '../../../../components/Charts/DaliyChart.tsx';
 import type {Dataset} from '../../../../components/Charts/types/configChart.ts';
-import {temperatureParams} from "./configMpa.ts";
+import {pressureParams} from "./configMpa.ts";
 
-const TemperMpa: React.FC = () => {
+const PressureMpa: React.FC = () => {
   const {id} = useParams();
 
   const datasets: Dataset[] =
-    temperatureParams.map(({keyPrefix, label}) => ({
+    pressureParams.map(({keyPrefix, label}) => ({
       apiUrl: `api/mpa${id}`,
-      dataKey: 'temperatures',
-      params: [{key: `${keyPrefix}${id}`, label, unit: '°C'}],
+      dataKey: 'pressures',
+      params: [{key: `${keyPrefix}${id}`, label, unit: 'кгс/м²'}],
     }))
   ;
 
   return (
     <DailyChart
-      title={`МПА №${id}: Температура`}
-      stepSize={50}
-      yMin={0}
-      yMax={1200}
+      title={`МПА №${id}: Давление/Разрежение`}
+      stepSize={10}
+      yMin={-30}
+      yMax={200}
       datasets={datasets}
     />
   );
 };
 
-export default TemperMpa;
+export default PressureMpa;
