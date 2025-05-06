@@ -16,7 +16,7 @@ import {Line} from 'react-chartjs-2';
 import {API_BASE_URL} from '../../apiConfig';
 import {useDailyChart} from './components/Hooks/useDailyChart.ts';
 import {ChartProps} from './types/configChart.ts';
-import CustomDatePicker from './components/CustomDatePicker/CustomDatePicker.tsx';
+import CustomDatePicker from '../../ui/CustomDatePicker/CustomDatePicker.tsx';
 import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage.tsx';
 import Loader from '../../ui/Loader/Loader';
 import styles from './Chart.module.scss';

@@ -1,5 +1,5 @@
-@use "../../../src/styles/mixins" as mixins;
-@use "../../../src/styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+@use "../../styles/variables" as vars;
 
 .sidebar-content {
   padding-top: 10px;
@@ -12,7 +12,7 @@
 
   &__object-title {
     margin: 0;
-    padding-bottom: 10px;
+    padding: 10px 0;
     @include mixins.text-style(18px, 18px, 500, rgb(100, 99, 99));
   }
 

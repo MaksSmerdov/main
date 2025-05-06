@@ -1,23 +1,47 @@
 import {SideBarContentData} from "../../../../types/sideBar.ts";
-import {createSection, createObject} from "../../../../utils/utils.ts";
+import {createSection, createObject, createGraphsWithDateSection} from "../../../../utils/utils.tsx";
+import dayjs from "dayjs";
 
 export const ugolProductionConfig: Record<string, SideBarContentData> = {
   "Вр. печи активации к.266": {
     sections: [
       createSection("У.П. к.266 Вр. печи", [
         createObject(undefined, [
-          {label: "Текущие параметры печи №1", path: "/carbon/furnaces/1/params"},
-          {label: "Текущие параметры печи №2", path: "/carbon/furnaces/1/mnemo"},
-          {label: "Текущие параметры печи №3", path: "/carbon/furnaces/1/mnemo"},
+          {
+            label: "Текущие параметры печи №1",
+            path: "http://techsite3/kaskad/Web_Clnt.dll/ShowPage?production/ugolProduction/pechiVrK266/currentParam-pechVr-1.htm"
+          },
+          {
+            label: "Текущие параметры печи №2",
+            path: "http://techsite3/kaskad/Web_Clnt.dll/ShowPage?production/ugolProduction/pechiVrK266/currentParam-pechVr-2.htm"
+          },
+          {
+            label: "Текущие параметры печи №3",
+            path: "http://techsite3/kaskad/Web_Clnt.dll/ShowPage?production/ugolProduction/pechiVrK266/currentParam-pechVr-3.htm"
+          },
         ]),
       ]),
-      createSection(undefined, [
-        createObject("Графики за выбранные сутки:", [
-          {label: "График температур печь №1", path: "/carbon/furnaces/1/params"},
-          {label: "График температур печь №2", path: "/carbon/furnaces/1/mnemo"},
-          {label: "График температур печь №3", path: "/carbon/furnaces/1/mnemo"},
-        ]),
-      ]),
+      createGraphsWithDateSection(
+        undefined,
+        dayjs(),
+        [
+          {
+            label: "График температур печь №1",
+            basePath: 'http://Techsite3/kaskad/graphics/k266pechiVr/',
+            suffix: "_1.jpg"
+          },
+          {
+            label: "График температур печь №2",
+            basePath: 'http://Techsite3/kaskad/graphics/k266pechiVr/',
+            suffix: "_2.jpg"
+          },
+          {
+            label: "График температур печь №3",
+            basePath: 'http://Techsite3/kaskad/graphics/k266pechiVr/',
+            suffix: "_3.jpg"
+          },
+        ]
+      ),
     ],
   },
   "Отделение активации к.10б": {

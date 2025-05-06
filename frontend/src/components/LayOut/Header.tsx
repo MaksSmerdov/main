@@ -4,7 +4,7 @@ import {CSSTransition, SwitchTransition} from 'react-transition-group';
 import Clock from '../../ui/Clock/Clock';
 import Calendar from '../../ui/Calendar/Calendar';
 import styles from './Header.module.scss';
-import SidebarContent from '../../ui/Sidebar/SidebarContent';
+import SidebarContent from '../SidebarContent/SidebarContent.tsx';
 import {mainTabs, libraryTabs} from './config/configTabs';
 import {sidebarMainConfig, sidebarLibraryConfig} from './config/sidebarConfig';
 

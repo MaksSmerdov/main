@@ -1,5 +1,5 @@
 import {SideBarContentData} from "../../../../types/sideBar.ts";
-import {createObject, createSection} from "../../../../utils/utils.ts";
+import {createObject, createSection} from "../../../../utils/utils.tsx";
 
 export const saimConfig: Record<string, SideBarContentData> = {
   "Инструкции": {
