@@ -113,8 +113,8 @@
   background-color: yellow;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1650px) {
   .calendar {
-    display: none;
+    width: 140px;
   }
 }

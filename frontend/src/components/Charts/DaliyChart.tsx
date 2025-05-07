@@ -223,8 +223,7 @@ const DailyChart: React.FC<ChartProps> = ({
   return (
     <div className={styles['daily__chart-container']}>
       <div className={styles['dynamic-graph__calendar']}>
-        <span className={styles['dynamic-graph__calendar--span']}>Выберите дату для просмотра архива:</span>
-        <CustomDatePicker label="Дата" value={selectedDate} onChange={handleDateChange}/>
+        <CustomDatePicker label="Выберите дату для просмотра архива" value={selectedDate} onChange={handleDateChange}/>
       </div>
       <div id={id} ref={chartContainerRef} style={{width, height}}>
         <Line ref={chartRef} data={chartData} options={options}/>

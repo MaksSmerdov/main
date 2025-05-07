@@ -1,0 +1,44 @@
+.custom-input {
+  :global(.MuiOutlinedInput-root) {
+    height: 40px;
+    font-family: "Bitter", "sans-serif";
+
+    fieldset {
+      border-color: grey;
+      transition: border-color 0.3s ease-in-out;
+    }
+
+    &:hover fieldset {
+      border-color: green;
+      transition: border-color 0.3s ease-in-out;
+    }
+
+    &.Mui-focused fieldset {
+      border-color: green;
+      transition: border-color 0.3s ease-in-out;
+
+      &:active fieldset {
+        border-color: green;
+      }
+    }
+  }
+
+  :global(.MuiOutlinedInput-root.Mui-focused fieldset) {
+    border-color: green;
+    transition: border-color 0.3s ease-in-out;
+  }
+
+  :global(.MuiInputLabel-root:not(.MuiInputLabel-shrink)) {
+    padding-right: 20px;
+    font-family: "Bitter", "sans-serif";
+    font-size: 14px;
+    top: -7px;
+    left: -3px;
+  }
+
+  :global(.MuiInputLabel-root.MuiInputLabel-shrink) {
+    font-family: "Bitter", "sans-serif";
+    color: black;
+    font-weight: 700;
+  }
+}

@@ -63,9 +63,6 @@ export const mainTabs: MainTab[] = [
     label: "Симулятор",
     subTabs: ["Симуляторы производства Карбон"],
   },
-  {
-    label: "Библиотека",
-  },
 ];
 
 export const libraryTabs: MainTab[] = [
@@ -103,8 +100,5 @@ export const libraryTabs: MainTab[] = [
       "Инструкции",
       "Схемы",
     ],
-  },
-  {
-    label: "Технологический сайт",
   },
 ];

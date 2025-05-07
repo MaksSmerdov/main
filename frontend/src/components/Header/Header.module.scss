@@ -1,0 +1,225 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.header {
+  &__background {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #ffffff;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 30%, #a8d5ba 15%, transparent 20%), radial-gradient(circle at 80% 70%, #6abf69 15%, transparent 20%), radial-gradient(circle at 50% 50%, #4caf50 15%, transparent 20%);
+      background-size: 50% 50%;
+      opacity: 0.7;
+      z-index: -1;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 25%, transparent 25%) -50px 0, linear-gradient(225deg, rgba(255, 255, 255, 0.3) 25%, transparent 25%) -50px 0, linear-gradient(315deg, rgba(255, 255, 255, 0.3) 25%, transparent 25%), linear-gradient(45deg, rgba(255, 255, 255, 0.3) 25%, transparent 25%);
+      background-size: 100px 100px;
+      z-index: -2;
+    }
+
+    &-lines {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 135px;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 20% 30%, #a8d5ba 15%, transparent 20%),
+        radial-gradient(circle at 80% 70%, #6abf69 15%, transparent 20%),
+        radial-gradient(circle at 50% 50%, #4caf50 15%, transparent 20%);
+        background-size: 50% 50%;
+        opacity: 0.7;
+        z-index: -1;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__container {
+    padding: 5px 20px 10px 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #dfdcdc;
+    gap: 10px;
+  }
+
+  &__left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    &-img {
+      width: 45px;
+    }
+
+    &-title {
+      max-width: 225px;
+      text-align: center;
+      text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+      @include mixins.text-style(24px, 36px, 600, vars.$hulk);
+    }
+  }
+
+  &__switch-btn {
+    padding: 5px 10px;
+    @include mixins.text-style(18px, 18px, 600, vars.$hulk);
+    border: 1px vars.$hulk solid;
+    border-radius: 5px;
+  }
+
+  &__center {
+    background-color: vars.$snowflake;
+    padding: 0 0 10px 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 16px vars.$grey;
+
+    &-subtabs {
+      padding-top: 8px;
+      padding-left: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &--link {
+        padding: 8px;
+        border-radius: 5px;
+        @include mixins.text-style(14px, 16px, 500, vars.$hulk);
+        text-align: center;
+        cursor: pointer;
+        transition: color 0.5s ease, background-color 0.5s ease;
+
+        &:hover {
+          color: vars.$beluga;
+          background-color: vars.$hulk;
+        }
+
+        &.active {
+          color: vars.$beluga;
+          background-color: vars.$hulk;
+        }
+
+        &.no-transition {
+          transition: none !important;
+        }
+      }
+    }
+
+  }
+
+  &__right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+}
+
+.custom__tabs {
+  border-radius: 10px 0 0 0;
+
+  :global(.MuiButtonBase-root.MuiTab-textColorPrimary) {
+    @include mixins.text-style(16px, 16px, 600, vars.$hulk);
+    text-transform: none;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: rgb(0, 128, 0, 0.2);
+      transition: background-color 0.3s ease-in-out;
+    }
+  }
+
+  :global(.MuiButtonBase-root.Mui-selected) {
+    background-color: rgb(0, 128, 0, 0.1);
+  }
+
+  :global(.MuiTabs-indicator.MuiTabs-indicator) {
+    background-color: vars.$hulk;
+  }
+
+  :global(.MuiTabs-scrollButtons.Mui-disabled) {
+    opacity: 0.3;
+  }
+
+  :global(.MuiTabs-scrollButtons) {
+    width: 25px;
+  }
+}
+
+@media (max-width: 1600px) {
+  .header {
+    &__logo {
+
+      &-img {
+        width: 40px;
+      }
+
+      &-title {
+        @include mixins.text-style(20px, 30px, 600, vars.$hulk);
+      }
+    }
+
+    &__center {
+      width: 700px;
+    }
+
+    &__center-subtabs {
+      &--link {
+        padding: 4px;
+        @include mixins.text-style(13px, 13px, 500, vars.$hulk);
+      }
+    }
+
+  }
+
+  .custom__tabs {
+    border-radius: 10px 0 0 0;
+    min-height: 36px !important;
+
+    :global(.MuiButtonBase-root.MuiTab-textColorPrimary) {
+      max-width: 140px;
+      min-height: 36px;
+      @include mixins.text-style(13px, 14px);
+      padding: 0 10px;
+    }
+  }
+}
+
+
+

@@ -3,7 +3,7 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {Dayjs} from 'dayjs';
 import 'dayjs/locale/ru.js'
 import React from 'react';
-import styles from '../CustomInput/CustomInput.module.scss';
+import styles from './CustomDatePicker.module.scss'
 
 interface CustomDatePickerProps {
   label: string;

@@ -1,33 +1,26 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from "./SidebarContent.module.scss";
 import {SideBarContentData} from "../../types/sideBar";
 import {Dayjs} from "dayjs";
-import DatePickerSection from "./SidebarDatePicker.tsx";
+import SidebarDatePicker from "./SidebarDatePicker";
 
-interface SideBarContentProps {
+interface SidebarContentProps {
   data: SideBarContentData;
+  activeLinkId: string;
+  pickerDates: Record<string, Dayjs | null>;
+  onActiveLinkChange: (linkId: string) => void;
+  onDateChange: (key: string, date: Dayjs | null) => void;
   onLinkClick?: (url: string) => void;
 }
 
-const SidebarContent: React.FC<SideBarContentProps> = ({
+const SidebarContent: React.FC<SidebarContentProps> = ({
                                                          data,
+                                                         activeLinkId,
+                                                         pickerDates,
+                                                         onActiveLinkChange,
+                                                         onDateChange,
                                                          onLinkClick,
                                                        }) => {
-  const [activeLink, setActiveLink] = useState<string>("");
-  const [pickerDates, setPickerDates] = useState<
-    Record<string, Dayjs | null>
-  >(() => {
-    const rec: Record<string, Dayjs | null> = {};
-    data.sections.forEach((section, si) =>
-      section.objects.forEach((obj, oi) => {
-        if (obj.datePicker) {
-          rec[`${si}-${oi}`] = obj.datePicker.initialDate;
-        }
-      })
-    );
-    return rec;
-  });
-
   const makeHref = (path: string) =>
     path.match(/^https?:\/\//)
       ? path
@@ -47,15 +40,15 @@ const SidebarContent: React.FC<SideBarContentProps> = ({
             const key = `${si}-${oi}`;
 
             if (obj.datePicker) {
-              const date = pickerDates[key];
               return (
-                <DatePickerSection
+                <SidebarDatePicker
                   key={key}
-                  date={date}
-                  onDateChange={(newDate) =>
-                    setPickerDates((prev) => ({...prev, [key]: newDate}))
-                  }
+                  sectionKey={key}
+                  date={pickerDates[key]}
+                  onDateChange={(newDate) => onDateChange(key, newDate)}
                   configs={obj.datePicker.configs}
+                  activeLinkId={activeLinkId}
+                  onActiveLinkChange={onActiveLinkChange}
                   onLinkClick={onLinkClick}
                 />
               );
@@ -63,11 +56,12 @@ const SidebarContent: React.FC<SideBarContentProps> = ({
 
             if (obj.links) {
               return (
-                <div key={key} className={styles["sidebar-content__object"]}>
+                <div
+                  key={key}
+                  className={styles["sidebar-content__object"]}
+                >
                   {obj.title && (
-                    <h3
-                      className={styles["sidebar-content__object-title"]}
-                    >
+                    <h3 className={styles["sidebar-content__object-title"]}>
                       {obj.title}
                     </h3>
                   )}
@@ -76,6 +70,9 @@ const SidebarContent: React.FC<SideBarContentProps> = ({
                   >
                     {obj.links.map((link, li) => {
                       const href = makeHref(link.path);
+                      const linkId = `${key}-${li}`;
+                      const isActive = linkId === activeLinkId;
+
                       return (
                         <li
                           key={li}
@@ -84,14 +81,14 @@ const SidebarContent: React.FC<SideBarContentProps> = ({
                           <a
                             href={href}
                             target="contentFrame"
-                            className={`${styles["sidebar-content__link"]} ${
-                              activeLink === link.path
-                                ? styles["active"]
-                                : ""
-                            }`}
-                            onClick={() => {
-                              setActiveLink(link.path);
+                            className={
+                              `${styles["sidebar-content__link"]} ` +
+                              (isActive ? styles["active"] : "")
+                            }
+                            onClick={(e) => {
+                              e.preventDefault();
                               onLinkClick?.(href);
+                              onActiveLinkChange(linkId);
                             }}
                           >
                             {link.label}
@@ -108,9 +105,9 @@ const SidebarContent: React.FC<SideBarContentProps> = ({
           })}
         </div>
       ))}
-      <div>АО Сорбент © 2025</div>
+      <div className={`${styles['copyright']}`}>АО Сорбент © 2025</div>
     </div>
   );
 };
 
-export default SidebarContent;
+export default SidebarContent

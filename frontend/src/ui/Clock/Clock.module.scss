@@ -38,7 +38,6 @@
       text-align: center;
       color: #fff;
       font-size: 0.8em;
-      font-family: "Gilroy", sans-serif;
       transform: rotate(calc(30deg * var(--i)));
 
       b {
@@ -111,6 +110,19 @@
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@media (max-width: 1650px) {
+  .clock {
+    width: 100px;
+    height: 100px;
+
+    &__numbers {
+      span {
+        font-size: 0.7em;
+      }
+    }
   }
 }
 
