@@ -27,8 +27,9 @@ const Sidebar: React.FC<SideBarProps> = ({
       PaperProps={{
         sx: {
           position: 'static',
-          height: '83vh',
+          height: '100%',
           overflowY: 'auto',
+          overflowX: 'hidden',
         },
       }}
     >

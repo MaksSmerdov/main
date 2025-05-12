@@ -6,6 +6,7 @@ import styles from "./HomePage.module.scss";
 import {Outlet} from "react-router-dom";
 import {SideBarContentData} from "../../types/sideBar";
 import {Dayjs} from "dayjs";
+import Footer from "../../components/Footer/Footer.tsx";
 
 const HomePage: React.FC = () => {
   const contentBodyRef = useRef<HTMLDivElement>(null);
@@ -56,13 +57,14 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <Header
-        setSideBarOpen={setSideBarOpen}
-        onSubTabSelect={handleSubTabSelect}
-        onSideBarLinkClick={handleSideBarLinkClick}
-        clearIframeUrl={() => setIframeUrl("")}
-      />
-
+      <header className={styles['header__container']}>
+        <Header
+          setSideBarOpen={setSideBarOpen}
+          onSubTabSelect={handleSubTabSelect}
+          onSideBarLinkClick={handleSideBarLinkClick}
+          clearIframeUrl={() => setIframeUrl("")}
+        />
+      </header>
       <div className={styles.home__body} ref={contentBodyRef}>
         <Sidebar
           open={sideBarOpen}
@@ -78,6 +80,9 @@ const HomePage: React.FC = () => {
         />
         <Outlet/>
       </div>
+      <footer className={`${styles['footer__container']}`}>
+        <Footer/>
+      </footer>
     </div>
   );
 };

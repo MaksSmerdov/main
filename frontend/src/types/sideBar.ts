@@ -9,6 +9,7 @@ export interface GraphConfig {
   label: string;
   basePath: string;
   suffix: string;
+  monthly?: boolean;
 }
 
 export interface DatePickerSection {

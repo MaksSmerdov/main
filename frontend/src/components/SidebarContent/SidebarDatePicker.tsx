@@ -35,7 +35,7 @@ const SidebarDatePicker: React.FC<Props> = ({
       </div>
       <ul className={`${styles["sidebar-content__links"]} list-reset`}>
         {configs.map((conf, i) => {
-          const url = buildUrl(date, conf.basePath, conf.suffix);
+          const url = buildUrl(date, conf.basePath, conf.suffix, conf.monthly);
           const linkId = `${sectionKey}-${i}`;
           const isActive = linkId === activeLinkId;
 

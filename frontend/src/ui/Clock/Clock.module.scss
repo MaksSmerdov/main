@@ -1,3 +1,10 @@
+@use "../../../src/styles/mixins" as mixins;
+@use "../../../src/styles/variables" as vars;
+
+.digital {
+  display: none;
+}
+
 .clock {
   position: relative;
   width: 125px;
@@ -126,7 +133,18 @@
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1370px) {
+  .digital {
+    width: 100px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include mixins.text-style(16px, 14px, 700, vars.$hulk);
+    gap: 5px;
+    border: 1px solid vars.$hunter-green;
+    background-color: vars.$snowflake;
+  }
   .clock {
     display: none;
   }

@@ -1,41 +1,35 @@
 @use "../../styles/mixins" as mixins;
 @use "../../styles/variables" as vars;
 
-.copyright {
-  @include mixins.text-style(18px, 18px, 600, vars.$black)
-}
-
 .sidebar-content {
-  padding: 10px 5px 10px 10px;
 
   &__header {
     margin: 0;
-    padding-bottom: 10px;
+    padding-top: 10px;
     @include mixins.text-style(20px, 20px, 600, vars.$black);
   }
 
   &__object-title {
     margin: 0;
-    padding: 10px 0;
     @include mixins.text-style(18px, 18px, 500, rgb(100, 99, 99));
   }
 
   &__section {
-    padding-bottom: 10px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
   }
 
   &__object {
-    padding-bottom: 10px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
   }
 
   &__links {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
   }
 
   &__link {
@@ -62,7 +56,7 @@
   }
 
   &__datepicker {
-    max-width: 90%;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    max-width: 80%;
   }
 }

@@ -8,6 +8,8 @@ import styles from './Header.module.scss';
 import {mainTabs, libraryTabs} from './config/configTabs';
 import {sidebarMainConfig, sidebarLibraryConfig} from './config/sidebarConfig';
 import {SideBarContentData} from '../../types/sideBar';
+import {FaArchive} from "react-icons/fa";
+import {FiMonitor} from "react-icons/fi";
 
 interface HeaderProps {
   setSideBarOpen: (open: boolean) => void;
@@ -78,17 +80,14 @@ const Header: React.FC<HeaderProps> = ({setSideBarOpen, onSubTabSelect, clearIfr
 
 
   return (
-    <header className={styles['header__container']}>
+    <>
       <div className={styles['header__background']}>
         <div className={styles['header__background-lines']}></div>
       </div>
       <div className={styles['header__left']}>
         <HeaderLogo
           title={title}
-          isLibraryMode={isLibraryMode}
-          toggleMode={toggleMode}
           titleRef={titleRef}
-          buttonRef={buttonRef}
         />
         <SwitchTransition mode="out-in">
           <CSSTransition
@@ -136,12 +135,23 @@ const Header: React.FC<HeaderProps> = ({setSideBarOpen, onSubTabSelect, clearIfr
           </CSSTransition>
         </SwitchTransition>
       </div>
-
       <div className={styles['header__right']}>
-        <Clock/>
-        <Calendar/>
+        <div className={styles['header__right--switch']}>
+          <button
+            className={`${styles['header__switch-btn']} btn-reset`}
+            onClick={toggleMode}
+            ref={buttonRef}
+          >
+            {isLibraryMode ? <FiMonitor/> : <FaArchive/>}
+            {isLibraryMode ? 'Тех. сайт' : 'Библиотека'}
+          </button>
+        </div>
+        <div className={styles['header__right--info']}>
+          <Clock/>
+          <Calendar/>
+        </div>
       </div>
-    </header>
+    </>
   );
 };
 

@@ -36,11 +36,16 @@ export const createGraphsWithDateSection = (
 export function buildUrl(
   date: Dayjs | null,
   base: string,
-  suffix: string
+  suffix: string,
+  monthly?: boolean,
 ): string {
   if (!date) return "";
   const dd = date.format("D");
   const mm = date.format("M");
   const yyyy = date.format("YYYY");
-  return `${base}${dd}_${mm}_${yyyy}${suffix}`;
+  if (!monthly) {
+    return `${base}${dd}_${mm}_${yyyy}${suffix}`;
+  } else {
+    return `${base}_${mm}_${yyyy}${suffix}`;
+  }
 }

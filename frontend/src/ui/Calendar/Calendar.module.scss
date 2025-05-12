@@ -1,6 +1,8 @@
+@use "../../../src/styles/mixins" as mixins;
+@use "../../../src/styles/variables" as vars;
+
 .calendar {
   width: 180px;
-  margin-left: 10px;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -38,31 +40,26 @@
       svg {
         width: 6px;
         height: 100%;
-        transform: rotate(180deg);
+        transform: rotate(0deg);
       }
     }
 
-    svg {
-      path {
-        fill: green;
-        transition: fill 0.3s ease-in-out;
-      }
+    svg path {
+      fill: green;
+      transition: fill 0.3s ease-in-out;
     }
 
     &:hover {
       background-color: green;
 
-      svg {
-        path {
-          fill: white;
-        }
+      svg path {
+        fill: white;
       }
     }
   }
 
   &__title-year {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0 5px;
     font-size: 12px;
     line-height: 12px;
     font-weight: 600;
@@ -73,7 +70,7 @@
   &__table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #94D394;
+    background-color: #94d394;
 
     th,
     td {
@@ -94,8 +91,7 @@
     }
 
     td {
-      padding-top: 1px;
-      padding-bottom: 1px;
+      padding: 1px 0;
       font-size: 11px;
       line-height: 11px;
       font-weight: 400;
@@ -107,14 +103,31 @@
       }
     }
   }
-}
 
-.today {
-  background-color: yellow;
-}
+  & .today {
+    background-color: yellow;
+  }
 
-@media (max-width: 1650px) {
-  .calendar {
+  &__compact {
+    width: 100px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include mixins.text-style(16px, 14px, 700, vars.$hulk);
+    gap: 5px;
+    border: 1px solid vars.$hunter-green;
+    background-color: vars.$snowflake;
+  }
+
+  @media (max-width: 1650px) {
     width: 140px;
+  }
+
+  @media (max-width: 1370px) {
+    &__btns,
+    &__table {
+      display: none;
+    }
   }
 }

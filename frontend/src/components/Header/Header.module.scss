@@ -62,16 +62,6 @@
     }
   }
 
-  &__container {
-    padding: 5px 20px 10px 20px;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #dfdcdc;
-    gap: 10px;
-  }
-
   &__left {
     display: flex;
     justify-content: flex-start;
@@ -97,18 +87,13 @@
     }
   }
 
-  &__switch-btn {
-    padding: 5px 10px;
-    @include mixins.text-style(18px, 18px, 600, vars.$hulk);
-    border: 1px vars.$hulk solid;
-    border-radius: 5px;
-  }
-
   &__center {
-    background-color: vars.$snowflake;
+    width: 100%;
+    min-width: 690px;
     padding: 0 0 10px 0;
-    border-radius: 10px;
+    background-color: vars.$snowflake;
     box-shadow: 2px 2px 16px vars.$grey;
+    border-radius: 10px;
 
     &-subtabs {
       padding-top: 8px;
@@ -140,19 +125,46 @@
         }
       }
     }
+  }
 
+  &__switch-btn {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    @include mixins.text-style(18px, 18px, 600, vars.$hulk);
+    background-color: vars.$snowflake;
+    box-shadow: 2px 2px 16px vars.$hunter-green;
+    white-space: nowrap;
+    border: 1px vars.$hulk solid;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    &:hover, &:active, {
+      background-color: vars.$hulk;
+      color: vars.$white;
+    }
   }
 
   &__right {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    gap: 10px;
+
+    &--info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
   }
 
 }
 
 .custom__tabs {
-  border-radius: 10px 0 0 0;
+  border-radius: 10px 10px 0 0;
 
   :global(.MuiButtonBase-root.MuiTab-textColorPrimary) {
     @include mixins.text-style(16px, 16px, 600, vars.$hulk);
@@ -185,31 +197,41 @@
 @media (max-width: 1600px) {
   .header {
     &__logo {
+      gap: 5px;
 
       &-img {
-        width: 40px;
+        width: 35px;
       }
 
       &-title {
-        @include mixins.text-style(20px, 30px, 600, vars.$hulk);
+        @include mixins.text-style(18px, 26px, 600, vars.$hulk);
       }
+    }
+
+    &__left {
+      gap: 10px;
     }
 
     &__center {
-      width: 700px;
+      width: 100%;
+
+      &-subtabs {
+        &--link {
+          padding: 4px;
+          @include mixins.text-style(13px, 13px, 500, vars.$hulk);
+        }
+      }
     }
 
-    &__center-subtabs {
-      &--link {
-        padding: 4px;
-        @include mixins.text-style(13px, 13px, 500, vars.$hulk);
-      }
+
+    &__switch-btn {
+      padding: 5px;
+      @include mixins.text-style(16px, 16px, 600, vars.$hulk);
     }
 
   }
 
   .custom__tabs {
-    border-radius: 10px 0 0 0;
     min-height: 36px !important;
 
     :global(.MuiButtonBase-root.MuiTab-textColorPrimary) {
@@ -221,5 +243,14 @@
   }
 }
 
+@media (max-width: 1370px) {
+
+  .header {
+    &__right--info {
+      flex-direction: column-reverse;
+      gap: 5px;
+    }
+  }
+}
 
 

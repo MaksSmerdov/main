@@ -1,0 +1,97 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.footer {
+  &__images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    & img {
+      height: 30px;
+      width: auto;
+      cursor: pointer;
+    }
+
+    & .footer__icon-wrapper {
+      position: relative;
+
+      & .footer__tooltip {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        top: -205px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: vars.$white;
+        border: 2px solid vars.$hulk;
+        padding: 8px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+
+        & canvas,
+        & svg {
+          display: block;
+          max-width: 128px;
+          max-height: 128px;
+        }
+
+        &--link {
+          text-decoration: none;
+          text-align: center;
+          @include mixins.text-style(18px, 18px, 600, vars.$hulk);
+          transition: color 0.3s ease-in-out;
+
+          &:hover, :active {
+            color: vars.$hobgoblin;
+          }
+        }
+      }
+    }
+  }
+
+  &__copyright {
+    &--text {
+      @include mixins.text-style(14px, 14px, 600, vars.$black);
+    }
+  }
+}
+
+@media (max-width: 1370px) {
+  .footer {
+    &__images {
+      gap: 25px;
+
+      & img {
+        height: 25px;
+      }
+
+      & .footer__icon-wrapper {
+        & .footer__tooltip {
+          top: -170px;
+
+          & canvas,
+          & svg {
+            max-width: 100px;
+            max-height: 100px;
+          }
+
+          &--link {
+            @include mixins.text-style(14px, 14px);
+          }
+        }
+      }
+    }
+
+    &__copyright {
+      &--text {
+        @include mixins.text-style(12px, 12px);
+      }
+    }
+  }
+}

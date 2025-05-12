@@ -1,14 +1,26 @@
-import React, {useState} from 'react';
-import styles from './Calendar.module.scss';
+import React, {useState, useEffect} from "react";
+import styles from "./Calendar.module.scss";
+import {FaAngleLeft, FaAngleRight, FaCalendar} from "react-icons/fa";
 
 const WEEK_DAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-const getMonthName = (month: number, year: number): string => {
-  return new Date(year, month).toLocaleDateString("ru-RU", {month: "long", year: "numeric"});
-};
+const getMonthName = (month: number, year: number): string =>
+  new Date(year, month).toLocaleDateString("ru-RU", {
+    month: "long",
+    year: "numeric",
+  });
 
 const Calendar: React.FC = () => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [isCompact, setIsCompact] = useState<boolean>(
+    typeof window !== "undefined" ? window.innerWidth <= 1370 : false,
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsCompact(window.innerWidth <= 1370);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -19,84 +31,89 @@ const Calendar: React.FC = () => {
   startDay = startDay - 1;
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-
   const totalCells = startDay + daysInMonth;
   const rows = Math.ceil(totalCells / 7);
-  const cells: (number | null)[] = [];
 
+  const cells: (number | null)[] = [];
   for (let i = 0; i < rows * 7; i++) {
-    if (i < startDay || i >= (startDay + daysInMonth)) {
+    if (i < startDay || i >= startDay + daysInMonth) {
       cells.push(null);
     } else {
       cells.push(i - startDay + 1);
     }
   }
 
-  const handlePrev = (): void => {
-    setCurrentDate(new Date(year, month - 1, 1));
-  };
-
-  const handleNext = (): void => {
-    setCurrentDate(new Date(year, month + 1, 1));
-  };
+  const handlePrev = () => setCurrentDate(new Date(year, month - 1, 1));
+  const handleNext = () => setCurrentDate(new Date(year, month + 1, 1));
 
   const today = new Date();
-  const isToday = (day: number): boolean => {
+  const isToday = (day: number) =>
+    today.getFullYear() === year &&
+    today.getMonth() === month &&
+    today.getDate() === day;
+
+  if (isCompact) {
+    const compactDate = today.toLocaleDateString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    });
+
     return (
-      today.getFullYear() === year &&
-      today.getMonth() === month &&
-      today.getDate() === day
+      <div className={`${styles["calendar__compact"]}`}>
+        <span> <FaCalendar/></span>
+        <span style={{width: '100%'}}>{compactDate}</span>
+      </div>
     );
-  };
+  }
 
   return (
-    <div className={`${styles['calendar']}`} id="calendar">
-      <div className={`${styles['calendar__btns']}`} id="month">
+    <div className={`${styles["calendar"]}`}>
+      <div className={`${styles["calendar__btns"]}`}>
         <button
-          className={`${styles['calendar__btn']} ${styles['calendar__btn--prev']} btn-reset`}
-          id="prev"
+          className={`${styles["calendar__btn"]} ${styles["calendar__btn--prev"]} btn-reset`}
           onClick={handlePrev}
         >
-          <svg viewBox="0 0 22 38" fill="none" aria-hidden="true">
-            <path
-              d="M1.23223 17.2322C0.255922 18.2085 0.255922 19.7915 1.23223 20.7678L17.1421 36.6777C18.1184 37.654 19.7014 37.654 20.6777 36.6777C21.654 35.7014 21.654 34.1184 20.6777 33.1421L6.53553 19L20.6777 4.85786C21.654 3.88155 21.654 2.29864 20.6777 1.32233C19.7014 0.346018 18.1184 0.346018 17.1421 1.32233L1.23223 17.2322ZM7 16.5L3 16.5L3 21.5L7 21.5L7 16.5Z"
-            ></path>
-          </svg>
+          <FaAngleLeft/>
         </button>
-        <h2 className={`${styles['calendar__title-year']} title-reset`} id="monthYear">
+
+        <h2
+          className={`${styles["calendar__title-year"]} title-reset`}
+        >
           {getMonthName(month, year)}
         </h2>
+
         <button
-          className={`${styles['calendar__btn']} ${styles['calendar__btn--next']} btn-reset`}
-          id="next"
+          className={`${styles["calendar__btn"]} ${styles["calendar__btn--next"]} btn-reset`}
           onClick={handleNext}
         >
-          <svg viewBox="0 0 22 38" fill="none" aria-hidden="true">
-            <path
-              d="M1.23223 17.2322C0.255922 18.2085 0.255922 19.7915 1.23223 20.7678L17.1421 36.6777C18.1184 37.654 19.7014 37.654 20.6777 36.6777C21.654 35.7014 21.654 34.1184 20.6777 33.1421L6.53553 19L20.6777 4.85786C21.654 3.88155 21.654 2.29864 20.6777 1.32233C19.7014 0.346018 18.1184 0.346018 17.1421 1.32233L1.23223 17.2322ZM7 16.5L3 16.5L3 21.5L7 21.5L7 16.5Z"
-            ></path>
-          </svg>
+          <FaAngleRight/>
         </button>
       </div>
-      <table className={`${styles['calendar__table']}`} id="calendarTable">
+
+      <table className={`${styles["calendar__table"]}`}>
         <thead>
         <tr>
-          {WEEK_DAYS.map((day, index) => (
-            <th key={index}>{day}</th>
+          {WEEK_DAYS.map((day) => (
+            <th key={day}>{day}</th>
           ))}
         </tr>
         </thead>
-        <tbody id="calendarBody" style={{height: "84px"}}>
+        <tbody style={{height: "84px"}}>
         {Array.from({length: rows}).map((_, rowIndex) => (
           <tr key={rowIndex}>
-            {cells.slice(rowIndex * 7, rowIndex * 7 + 7).map((cell, cellIndex) => (
-              <td
-                key={cellIndex}
-                className={cell && isToday(cell) ? `${styles['today']}` : ''}
-              >
-                {cell ? cell : ''}
-              </td>
-            ))}
+            {cells
+              .slice(rowIndex * 7, rowIndex * 7 + 7)
+              .map((cell, cellIndex) => (
+                <td
+                  key={cellIndex}
+                  className={
+                    cell && isToday(cell) ? `${styles["today"]}` : ""
+                  }
+                >
+                  {cell ?? ""}
+                </td>
+              ))}
           </tr>
         ))}
         </tbody>

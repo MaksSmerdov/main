@@ -105,7 +105,6 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
           })}
         </div>
       ))}
-      <div className={`${styles['copyright']}`}>АО Сорбент © 2025</div>
     </div>
   );
 };
