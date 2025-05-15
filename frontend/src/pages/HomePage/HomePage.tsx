@@ -1,6 +1,6 @@
 import React, {useRef, useState, useCallback} from "react";
 import Header from "../../components/Header/Header";
-import Sidebar from "../../ui/Sidebar/Sidebar";
+import Sidebar from "../../components/Ui/Sidebar/Sidebar";
 import SidebarContent from "../../components/SidebarContent/SidebarContent";
 import styles from "./HomePage.module.scss";
 import {Outlet} from "react-router-dom";
@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
   );
 
   return (
-    <div className={styles.home}>
+    <div className={`${styles['home']}`}>
       <header className={styles['header__container']}>
         <Header
           setSideBarOpen={setSideBarOpen}
@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
           clearIframeUrl={() => setIframeUrl("")}
         />
       </header>
-      <div className={styles.home__body} ref={contentBodyRef}>
+      <div className={`${styles['home__body']}`} ref={contentBodyRef}>
         <Sidebar
           open={sideBarOpen}
           onClose={() => setSideBarOpen(false)}
@@ -75,8 +75,8 @@ const HomePage: React.FC = () => {
         <iframe
           name="contentFrame"
           src={iframeUrl || undefined}
-          title="Embedded Content"
-          className={styles.home__iframe}
+          title="Frame Content"
+          className={`${styles['home__iframe']}`}
         />
         <Outlet/>
       </div>

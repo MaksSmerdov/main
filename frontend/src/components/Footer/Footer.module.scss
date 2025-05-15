@@ -24,11 +24,11 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        top: -205px;
+        top: -235px;
         left: 50%;
         transform: translateX(-50%);
         background: vars.$white;
-        border: 2px solid vars.$hulk;
+        border: 2px solid vars.$carbon;
         padding: 8px;
         border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
@@ -51,7 +51,13 @@
             color: vars.$hobgoblin;
           }
         }
+
+        &--descr {
+          text-align: center;
+          @include mixins.text-style(12px, 12px, 500, vars.$black);
+        }
       }
+
     }
   }
 
@@ -60,6 +66,7 @@
       @include mixins.text-style(14px, 14px, 600, vars.$black);
     }
   }
+
 }
 
 @media (max-width: 1370px) {
@@ -73,7 +80,8 @@
 
       & .footer__icon-wrapper {
         & .footer__tooltip {
-          top: -170px;
+          gap: 5px;
+          top: -185px;
 
           & canvas,
           & svg {
@@ -83,6 +91,10 @@
 
           &--link {
             @include mixins.text-style(14px, 14px);
+          }
+
+          &--descr {
+            @include mixins.text-style(10px, 10px);
           }
         }
       }

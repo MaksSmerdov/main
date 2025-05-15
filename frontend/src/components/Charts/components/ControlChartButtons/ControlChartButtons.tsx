@@ -1,6 +1,6 @@
 import React from 'react';
-import { FaArrowLeft, FaArrowRight, FaEye, FaEyeSlash, FaSync } from 'react-icons/fa';
-import Button from '../../../../ui/CustomButton/CustomButton.tsx';
+import {FaArrowLeft, FaArrowRight, FaEye, FaEyeSlash, FaSync} from 'react-icons/fa';
+import Button from '../../../Ui/CustomButton/CustomButton.tsx';
 import styles from '../../Chart.module.scss';
 
 export interface ControlChartButtonsProps {
@@ -22,22 +22,22 @@ const ControlChartButtons: React.FC<ControlChartButtonsProps> = ({
     <div className={styles['dynamic-graph__btns']}>
       {onBackward && (
         <Button onClick={onBackward}>
-          <FaArrowLeft />
+          <FaArrowLeft/>
           Назад
         </Button>
       )}
       {onForward && (
         <Button onClick={onForward}>
-          <FaArrowRight />
+          <FaArrowRight/>
           Вперёд
         </Button>
       )}
       <Button onClick={onToggleAll}>
-        {allHidden ? <FaEyeSlash /> : <FaEye />}
+        {allHidden ? <FaEyeSlash/> : <FaEye/>}
         {allHidden ? 'Показать все' : 'Скрыть все'}
       </Button>
       <Button onClick={onReturnToCurrent}>
-        <FaSync />
+        <FaSync/>
         Вернуться к текущим данным
       </Button>
     </div>

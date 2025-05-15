@@ -1,12 +1,12 @@
 import React, {useState, useRef} from 'react';
 import {Tabs, Tab} from '@mui/material';
 import {CSSTransition, SwitchTransition} from 'react-transition-group';
-import Clock from '../../ui/Clock/Clock';
-import Calendar from '../../ui/Calendar/Calendar';
+import Clock from '../Ui/Clock/Clock';
+import Calendar from '../Ui/Calendar/Calendar';
 import HeaderLogo from './HeaderLogo';
 import styles from './Header.module.scss';
 import {mainTabs, libraryTabs} from './config/configTabs';
-import {sidebarMainConfig, sidebarLibraryConfig} from './config/sidebarConfig';
+import {sidebarMainConfig, sidebarLibraryConfig} from '../SidebarContent/content/sidebarConfig.ts';
 import {SideBarContentData} from '../../types/sideBar';
 import {FaArchive} from "react-icons/fa";
 import {FiMonitor} from "react-icons/fi";
@@ -37,6 +37,7 @@ const Header: React.FC<HeaderProps> = ({setSideBarOpen, onSubTabSelect, clearIfr
   const toggleMode = () => {
     clearIframeUrl();
     setSubIndex(-1);
+    setMainIndex(0);
     setSideBarOpen(false);
     onSubTabSelect(null);
     setDisableSubTabsTransition(true);

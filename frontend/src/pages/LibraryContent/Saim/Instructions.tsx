@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from "../../../ui/CustomButton/CustomButton.tsx";
+import Button from "../../../components/Ui/CustomButton/CustomButton.tsx";
 import styles from './Instructions.module.scss'
 
 export const Instructions: React.FC = () => {

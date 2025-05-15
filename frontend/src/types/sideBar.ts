@@ -8,14 +8,21 @@ export interface LinkItem {
 export interface GraphConfig {
   label: string;
   basePath: string;
-  suffix: string;
+  suffix?: string;
   monthly?: boolean;
+  electric?: boolean;
+}
+
+// title теперь необязателен
+export interface DatePickerGroup {
+  title?: string;
+  configs: GraphConfig[];
 }
 
 export interface DatePickerSection {
   pickerLabel: string;
   initialDate: Dayjs | null;
-  configs: GraphConfig[];
+  groups: DatePickerGroup[];
 }
 
 export interface ObjectItem {

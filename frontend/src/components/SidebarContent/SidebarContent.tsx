@@ -46,7 +46,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                   sectionKey={key}
                   date={pickerDates[key]}
                   onDateChange={(newDate) => onDateChange(key, newDate)}
-                  configs={obj.datePicker.configs}
+                  groups={obj.datePicker.groups}
                   activeLinkId={activeLinkId}
                   onActiveLinkChange={onActiveLinkChange}
                   onLinkClick={onLinkClick}

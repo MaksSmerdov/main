@@ -5,8 +5,8 @@ import styles from "./Footer.module.scss";
 
 const Footer: React.FC = () => {
   const [showQr, setShowQr] = useState(false);
-  const telegramRef = useRef<HTMLDivElement>(null);      // для кликов вне
-  const tooltipRef = useRef<HTMLDivElement>(null);       // для CSSTransition
+  const telegramRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const toggleQr = () => setShowQr(v => !v);
 
@@ -67,7 +67,6 @@ const Footer: React.FC = () => {
               ref={tooltipRef}
               className={styles["footer__tooltip"]}
             >
-              <QRCodeCanvas value="https://t.me/test_techsite_bot"/>
               <a
                 className={styles["footer__tooltip--link"]}
                 href="https://t.me/test_techsite_bot"
@@ -76,6 +75,11 @@ const Footer: React.FC = () => {
               >
                 Промышленный<br/>телеграм бот
               </a>
+              <QRCodeCanvas value="https://t.me/test_techsite_bot"/>
+
+              <span className={`${styles['footer__tooltip--descr']}`}>
+                Для получения доступа обратитесь в САиМ
+              </span>
             </div>
           </CSSTransition>
         </div>

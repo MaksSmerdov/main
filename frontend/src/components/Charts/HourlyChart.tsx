@@ -17,7 +17,7 @@ import {API_BASE_URL} from '../../apiConfig';
 import {useInterval} from './components/Context/IntervalContext.tsx';
 import {useHourlyChart} from './components/Hooks/useHourlyChart.ts';
 import {ChartProps} from './types/configChart.ts';
-import Loader from '../../ui/Loader/Loader';
+import Loader from '../Ui/Loader/Loader';
 import styles from './Chart.module.scss';
 import ControlChartButtons from './components/ControlChartButtons/ControlChartButtons.tsx';
 import {colors} from './configs/generalConfig.ts';

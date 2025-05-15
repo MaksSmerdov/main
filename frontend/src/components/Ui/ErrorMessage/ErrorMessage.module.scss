@@ -1,5 +1,5 @@
-@use '../../../src/styles/mixins' as mixins;
-@use '../../../src/styles/variables' as vars;
+@use "../../../styles/mixins" as mixins;
+@use "../../../styles/variables" as vars;
 
 .error-message {
   @include mixins.text-style(26px, 24px, 600, vars.$red);
