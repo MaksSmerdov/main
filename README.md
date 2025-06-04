@@ -1,54 +1,78 @@
-# React + TypeScript + Vite
+# Главный сервер
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Данный сервер связывает все остальные сервера, а также на него поступают данные для построения суточных графиков.
 
-Currently, two official plugins are available:
+## Запуск сервера
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Клонирование репозитория:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+git clone https://github.com/MaksSmerdov/main
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Для запуска сервера, необходимо установить MongoDB, а затем установить зависимости в папке backend и frontend командой:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+После установки зависимостей необходимо запустить backend часть приложения и frontend командой:
+
+```bash
+npm run dev
+```
+
+Для создания билда frontend использовать команду:
+
+```bash
+npm run build
+```
+
+## Настройка переменных окружения
+
+Создайте файл .env в папке Backend и добавьте необходимые переменные окружения, например:
+
+```env
+PORT=3002
+```
+
+### Используемые технологии
+
+Backend часть приложения:
+
+- **Node.js**: Основная платформа для выполнения JavaScript на сервере.
+- **Express.js**: Фреймворк для создания API и обработки HTTP-запросов.
+- **MongoDB**: База данных для хранения данных с оборудования.
+- **Winston**: Библиотека для логирования.
+
+Frontend часть приложения:
+
+- **React**: библиотека для построения пользовательских интерфейсов.
+- **Typescript**: статическая типизация.
+- **React router dom**: навигация между страницами.
+- **Chart.js**: библиотека для визуализации данных на графиках.
+- **dayjs**: библиотека для работы в датами и временем.
+
+### Структура проекта
+
+Backend:
+
+- **src/:** Основная директория с исходным кодом.
+- **server.js:** Точка входа в приложение.
+- **services/:** Сервисы для сбора данных.
+- **routes/:** Маршруты Express для API.
+- **models/:** Модели Mongoose для работы с MongoDB.
+- **configs:** Конфиги принимающие url, api с других серверов
+- **logger.js:** Конфигурация логгера.
+
+Frontend:
+
+- **src/:** Основная директория с исходным кодом.
+- **main.tsx:** Точка входа в приложение.
+- **apiConfig.ts:** Файл отвечающий за понимания какая среда разработки.
+- **components/:** Здесь хранятся все компоненты используемые в проекте.
+- **pages/:** Страницы приложения.
+- **routes/:** Маршруты для навигации.
+- **styles/:** Общие стили проекта.
+- **types/:** Здесь хранятся типы данных.
+- **utils/:** Здесь хранятся вспомогательные функции.
